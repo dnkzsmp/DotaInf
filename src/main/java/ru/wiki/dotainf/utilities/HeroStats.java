@@ -38,24 +38,24 @@ public class HeroStats {
     private Integer pro_ban;
     private Integer pro_win;
     private Integer pro_pick;
-    private Long first_pick;
-    private Long first_win;
-    private Long second_pick;
-    private Long second_win;
-    private Long third_pick;
-    private Long third_win;
-    private Long fourth_pick;
-    private Long fourth_win;
-    private Long fifth_pick;
-    private Long fifth_win;
-    private Long sixth_pick;
-    private Long sixth_win;
-    private Long seventh_pick;
-    private Long seventh_win;
-    private Long eighth_pick;
-    private Long eighth_win;
-    private Long null_pick;
-    private Long null_win;
+    private Integer first_pick;
+    private Integer first_win;
+    private Integer second_pick;
+    private Integer second_win;
+    private Integer third_pick;
+    private Integer third_win;
+    private Integer fourth_pick;
+    private Integer fourth_win;
+    private Integer fifth_pick;
+    private Integer fifth_win;
+    private Integer sixth_pick;
+    private Integer sixth_win;
+    private Integer seventh_pick;
+    private Integer seventh_win;
+    private Integer eighth_pick;
+    private Integer eighth_win;
+    private Integer null_pick;
+    private Integer null_win;
 
     public HeroStats() {}
 
@@ -95,24 +95,24 @@ public class HeroStats {
             Integer pro_ban,
             Integer pro_win,
             Integer pro_pick,
-            Long first_pick,
-            Long first_win,
-            Long second_pick,
-            Long second_win,
-            Long third_pick,
-            Long third_win,
-            Long fourth_pick,
-            Long fourth_win,
-            Long fifth_pick,
-            Long fifth_win,
-            Long sixth_pick,
-            Long sixth_win,
-            Long seventh_pick,
-            Long seventh_win,
-            Long eighth_pick,
-            Long eighth_win,
-            Long null_pick,
-            Long null_win
+            Integer first_pick,
+            Integer first_win,
+            Integer second_pick,
+            Integer second_win,
+            Integer third_pick,
+            Integer third_win,
+            Integer fourth_pick,
+            Integer fourth_win,
+            Integer fifth_pick,
+            Integer fifth_win,
+            Integer sixth_pick,
+            Integer sixth_win,
+            Integer seventh_pick,
+            Integer seventh_win,
+            Integer eighth_pick,
+            Integer eighth_win,
+            Integer null_pick,
+            Integer null_win
     ) {
         this.id = id;
         this.name = name;
@@ -447,6 +447,150 @@ public class HeroStats {
 
     public void setPro_pick(Integer pro_pick) {
         this.pro_pick = pro_pick;
+    }
+
+    public Integer getFirst_pick() {
+        return first_pick;
+    }
+
+    public void setFirst_pick(Integer first_pick) {
+        this.first_pick = first_pick;
+    }
+
+    public Integer getFirst_win() {
+        return first_win;
+    }
+
+    public void setFirst_win(Integer first_win) {
+        this.first_win = first_win;
+    }
+
+    public Integer getSecond_pick() {
+        return second_pick;
+    }
+
+    public void setSecond_pick(Integer second_pick) {
+        this.second_pick = second_pick;
+    }
+
+    public Integer getSecond_win() {
+        return second_win;
+    }
+
+    public void setSecond_win(Integer second_win) {
+        this.second_win = second_win;
+    }
+
+    public Integer getThird_pick() {
+        return third_pick;
+    }
+
+    public void setThird_pick(Integer third_pick) {
+        this.third_pick = third_pick;
+    }
+
+    public Integer getThird_win() {
+        return third_win;
+    }
+
+    public void setThird_win(Integer third_win) {
+        this.third_win = third_win;
+    }
+
+    public Integer getFourth_pick() {
+        return fourth_pick;
+    }
+
+    public void setFourth_pick(Integer fourth_pick) {
+        this.fourth_pick = fourth_pick;
+    }
+
+    public Integer getFourth_win() {
+        return fourth_win;
+    }
+
+    public void setFourth_win(Integer fourth_win) {
+        this.fourth_win = fourth_win;
+    }
+
+    public Integer getFifth_pick() {
+        return fifth_pick;
+    }
+
+    public void setFifth_pick(Integer fifth_pick) {
+        this.fifth_pick = fifth_pick;
+    }
+
+    public Integer getFifth_win() {
+        return fifth_win;
+    }
+
+    public void setFifth_win(Integer fifth_win) {
+        this.fifth_win = fifth_win;
+    }
+
+    public Integer getSixth_pick() {
+        return sixth_pick;
+    }
+
+    public void setSixth_pick(Integer sixth_pick) {
+        this.sixth_pick = sixth_pick;
+    }
+
+    public Integer getSixth_win() {
+        return sixth_win;
+    }
+
+    public void setSixth_win(Integer sixth_win) {
+        this.sixth_win = sixth_win;
+    }
+
+    public Integer getSeventh_pick() {
+        return seventh_pick;
+    }
+
+    public void setSeventh_pick(Integer seventh_pick) {
+        this.seventh_pick = seventh_pick;
+    }
+
+    public Integer getSeventh_win() {
+        return seventh_win;
+    }
+
+    public void setSeventh_win(Integer seventh_win) {
+        this.seventh_win = seventh_win;
+    }
+
+    public Integer getEighth_pick() {
+        return eighth_pick;
+    }
+
+    public void setEighth_pick(Integer eighth_pick) {
+        this.eighth_pick = eighth_pick;
+    }
+
+    public Integer getEighth_win() {
+        return eighth_win;
+    }
+
+    public void setEighth_win(Integer eighth_win) {
+        this.eighth_win = eighth_win;
+    }
+
+    public Integer getNull_pick() {
+        return null_pick;
+    }
+
+    public void setNull_pick(Integer null_pick) {
+        this.null_pick = null_pick;
+    }
+
+    public Integer getNull_win() {
+        return null_win;
+    }
+
+    public void setNull_win(Integer null_win) {
+        this.null_win = null_win;
     }
 
     @Override
