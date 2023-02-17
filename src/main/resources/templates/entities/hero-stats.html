@@ -10,6 +10,14 @@
   <header th:insert="sample.html :: header"></header>
   
   <main>
+    <div class="bd-example mx-5">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="/heroes">Герои</a></li>
+          <li class="breadcrumb-item active" aria-current="page" th:text="${heroStats.localized_name}">
+        </ol>
+      </nav>
+    </div>
     <div class="d-flex justify-content-left">
       <div class="shadow-lg h-50 d-inline-block p-3 mb-5 bg-white rounded-end border border-2 border-left-0">
         <img th:src="'https://dota2.ru/img/heroes/' +
@@ -39,7 +47,7 @@
           <caption>Основные аттрибуты</caption>
           <thead>
           <tr>
-            <th scope="col">#</th>
+            <th scope="col"></th>
             <th scope="col">Аттрибут</th>
             <th scope="col">Значение</th>
           </tr>
@@ -97,7 +105,7 @@
         <table class="table table-hover">
           <thead>
           <tr>
-            <th scope="col">#</th>
+            <th scope="col"></th>
             <th scope="col">Аттрибут</th>
             <th scope="col">Значение</th>
           </tr>
@@ -142,6 +150,85 @@
             <th scope="row">17</th>
             <td>Скорость передвижения</td>
             <td th:text="${heroStats.move_speed}"/>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="px-5">
+        <table class="table table-hover">
+          <caption>Статистика по рангам (за месяц)</caption>
+          <thead>
+          <tr>
+            <th scope="col"></th>
+            <th scope="col">Ранг</th>
+            <th scope="col">Кол-во пиков</th>
+            <th scope="col">Кол-во побед</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <th scope="row">
+              <img src="../../static/images/herald.png" width="35" height="35" th:src="@{/images/herald.png}">
+            </th>
+            <td>Рекрут</td>
+            <td th:text="${heroStats.fifth_pick}"/>
+            <td th:text="${heroStats.fifth_win}"/>
+          </tr>
+          <tr>
+            <th scope="row">
+              <img src="../../static/images/guardian.png" width="35" height="35" th:src="@{/images/guardian.png}">
+            </th>
+            <td>Страж</td>
+            <td th:text="${heroStats.second_pick}"/>
+            <td th:text="${heroStats.second_win}"/>
+          </tr>
+          <tr>
+            <th scope="row">
+              <img src="../../static/images/crusader.png" width="35" height="35" th:src="@{/images/crusader.png}">
+            </th>
+            <td>Рыцарь</td>
+            <td th:text="${heroStats.third_pick}"/>
+            <td th:text="${heroStats.third_win}"/>
+          </tr>
+          <tr>
+            <th scope="row">
+              <img src="../../static/images/archon.png" width="35" height="35" th:src="@{/images/archon.png}">
+            </th>
+            <td>Герой</td>
+            <td th:text="${heroStats.fourth_pick}"/>
+            <td th:text="${heroStats.fourth_win}"/>
+          </tr>
+          <tr>
+            <th scope="row">
+              <img src="../../static/images/legend.png" width="35" height="35" th:src="@{/images/legend.png}">
+            </th>
+            <td>Легенда</td>
+            <td th:text="${heroStats.fifth_pick}"/>
+            <td th:text="${heroStats.fifth_win}"/>
+          </tr>
+          <tr>
+            <th scope="row">
+              <img src="../../static/images/ancient.png" width="35" height="35" th:src="@{/images/ancient.png}">
+            </th>
+            <td>Властелин</td>
+            <td th:text="${heroStats.sixth_pick}"/>
+            <td th:text="${heroStats.sixth_win}"/>
+          </tr>
+          <tr>
+            <th scope="row">
+              <img src="../../static/images/divine.png" width="35" height="35" th:src="@{/images/divine.png}">
+            </th>
+            <td>Божество</td>
+            <td th:text="${heroStats.seventh_pick}"/>
+            <td th:text="${heroStats.seventh_win}"/>
+          </tr>
+          <tr>
+            <th scope="row">
+              <img src="../../static/images/immortal.png" width="35" height="35" th:src="@{/images/immortal.png}">
+            </th>
+            <td>Титан+</td>
+            <td th:text="${heroStats.eighth_pick}"/>
+            <td th:text="${heroStats.eighth_win}"/>
           </tr>
           </tbody>
         </table>
