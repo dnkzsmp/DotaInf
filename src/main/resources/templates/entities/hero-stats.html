@@ -4,7 +4,7 @@
   <meta th:insert="sample.html :: meta-charset"/>
   <meta th:insert="sample.html :: meta-name"/>
   <link th:insert="sample.html :: link-href"/>
-    <title>Герой</title>
+    <title th:text="${heroStats.localized_name} + ' | DotaInf'"></title>
 </head>
 <body>
   <header th:insert="sample.html :: header"></header>

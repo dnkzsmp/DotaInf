@@ -37,6 +37,6 @@ public class HeroesController {
             throw new Exception("Героя под именем " + heroName + " не существует");
         }
         model.addAttribute("heroStats", heroStats);
-        return "entities/hero";
+        return "entities/hero-stats";
     }
 }
