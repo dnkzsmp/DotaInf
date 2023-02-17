@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+<head>
+    <meta th:insert="sample.html :: meta-charset"/>
+    <meta th:insert="sample.html :: meta-name"/>
+    <link th:insert="sample.html :: link-href"/>
+    <title>Герои | Dota Inf</title>
+</head>
+<body>
+    <header th:insert="sample.html :: header"></header>
+
+    <div class="album py-5 bg-light bg-gradient">
+        <div class="input-group mb-3 w-25 mx-auto">
+            <input type="text" class="form-control" placeholder="Введите имя героя" aria-label="Введите имя героя" aria-describedby="button-addon2">
+            <button class="btn btn-outline-secondary" type="button" id="button-addon2">Найти</button>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                <th:block th:each="heroStats: ${heroes}">
+                    <th:block th:if="(${heroStats.id} - 1) % 3 == 0">
+                        <div class="w-100 py-2"></div>
+                        <div class="card col mx-2 shadow-sm">
+                            <div class="card-body">
+                                <h5 class="card-title" th:text="${heroStats.heroName}"/>
+                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                <a th:href="'heroes/hero-stats/' + ${heroStats.heroName.toLowerCase().replace(' ', '-')}" class="btn btn-primary">Посмотреть</a>
+                            </div>
+                        </div>
+                    </th:block>
+                    <th:block th:unless="(${heroStats.id} - 1) % 3 == 0">
+                        <div class="card col mx-2 shadow-sm">
+                            <div class="card-body">
+                                <h5 class="card-title" th:text="${heroStats.heroName}"/>
+                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                <a th:href="'heroes/hero-stats/' + ${heroStats.heroName.toLowerCase().replace(' ', '-')}" class="btn btn-primary">Посмотреть</a>
+                            </div>
+                        </div>
+                    </th:block>
+                </th:block>
+            </div>
+        </div>
+    </div>
+
+    <footer th:insert="sample.html :: footer"></footer>
+</body>
+</html>

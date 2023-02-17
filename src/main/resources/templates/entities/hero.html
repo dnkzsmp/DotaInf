@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <meta th:insert="sample.html :: meta-charset"/>
+  <meta th:insert="sample.html :: meta-name"/>
+  <link th:insert="sample.html :: link-href"/>
+    <title>Герой</title>
+</head>
+<body>
+  <header th:insert="sample.html :: header"></header>
+  
+  <main>
+    <div class="d-flex justify-content-left">
+      <div class="shadow-lg h-50 d-inline-block p-3 mb-5 bg-white rounded-end border border-2 border-left-0">
+        <img th:src="'https://dota2.ru/img/heroes/' +
+                ${heroStats.localized_name
+                .toLowerCase()
+                .replace(' ', '_')
+                .replace('-', '_')} + '/' +
+                ${heroStats.localized_name
+                .toLowerCase()
+                .replace(' ', '_')
+                .replace('-', '_')}  + '.png'"
+             th:alt="${heroStats.localized_name}">
+        <th:block th:switch="${heroStats.primary_attr}">
+          <th:block th:case="'agi'">
+            <div class="p-3 mb-2 bg-success text-white text-center d-flex justify-content-center" th:text="${heroStats.localized_name.toUpperCase()}"/>
+          </th:block>
+          <th:block th:case="'str'">
+            <div class="p-3 mb-2 bg-danger text-white text-center d-flex justify-content-center" th:text="${heroStats.localized_name.toUpperCase()}"/>
+          </th:block>
+          <th:block th:case="'int'">
+            <div class="p-3 mb-2 bg-primary text-white text-center d-flex justify-content-center" th:text="${heroStats.localized_name.toUpperCase()}"/>
+          </th:block>
+        </th:block>
+      </div>
+      <div class="px-5">
+        <table class="table table-hover">
+          <caption>Основные аттрибуты</caption>
+          <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Аттрибут</th>
+            <th scope="col">Значение</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <th scope="row">1</th>
+            <td>Базовое здоровье</td>
+            <td th:text="${heroStats.base_health}"/>
+          </tr>
+          <tr>
+            <th scope="row">2</th>
+            <td>Базовый реген здоровья</td>
+            <td th:text="${heroStats.base_health_regen}"/>
+          </tr>
+          <tr>
+            <th scope="row">3</th>
+            <td>Базовая мана</td>
+            <td th:text="${heroStats.base_mana}"/>
+          </tr>
+          <tr>
+            <th scope="row">4</th>
+            <td>Базовый реген маны</td>
+            <td th:text="${heroStats.base_mana_regen}"/>
+          </tr>
+          <tr>
+            <th scope="row">5</th>
+            <td>Базовая броня</td>
+            <td th:text="${heroStats.base_armor}"/>
+          </tr>
+          <tr>
+            <th scope="row">6</th>
+            <td>Базовый мин. урон</td>
+            <td th:text="${heroStats.base_attack_min}"/>
+          </tr>
+          <tr>
+            <th scope="row">7</th>
+            <td>Базовый макс. урон</td>
+            <td th:text="${heroStats.base_attack_max}"/>
+          </tr>
+          <tr>
+            <th scope="row">8</th>
+            <td>Базовая сила</td>
+            <td th:text="${heroStats.base_str}"/>
+          </tr>
+          <tr>
+            <th scope="row">9</th>
+            <td>Базовая ловкость</td>
+            <td th:text="${heroStats.base_agi}"/>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="px-5">
+        <table class="table table-hover">
+          <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Аттрибут</th>
+            <th scope="col">Значение</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <th scope="row">10</th>
+            <td>Базовый интеллект</td>
+            <td th:text="${heroStats.base_int}"/>
+          </tr>
+          <tr>
+            <th scope="row">11</th>
+            <td>Прирост силы</td>
+            <td th:text="${heroStats.str_gain}"/>
+          </tr>
+          <tr>
+            <th scope="row">12</th>
+            <td>Прирост ловкости</td>
+            <td th:text="${heroStats.agi_gain}"/>
+          </tr>
+          <tr>
+            <th scope="row">13</th>
+            <td>Прирост интеллекта</td>
+            <td th:text="${heroStats.int_gain}"/>
+          </tr>
+          <tr>
+            <th scope="row">14</th>
+            <td>Расстояние атаки</td>
+            <td th:text="${heroStats.attack_range}"/>
+          </tr>
+          <tr>
+            <th scope="row">15</th>
+            <td>Скорость снарядов</td>
+            <td th:text="${heroStats.projectile_speed}"/>
+          </tr>
+          <tr>
+            <th scope="row">16</th>
+            <td>Скорость атаки</td>
+            <td th:text="${heroStats.attack_rate}"/>
+          </tr>
+          <tr>
+            <th scope="row">17</th>
+            <td>Скорость передвижения</td>
+            <td th:text="${heroStats.move_speed}"/>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+
+  <footer th:insert="sample.html :: footer"></footer>
+</body>
+</html>
