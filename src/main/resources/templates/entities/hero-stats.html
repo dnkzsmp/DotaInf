@@ -20,6 +20,8 @@
     </div>
     <div class="d-flex justify-content-left">
       <div class="shadow-lg h-50 d-inline-block p-3 mb-5 bg-white rounded-end border border-2 border-left-0">
+        <th:block th:switch="${heroStats.primary_attr}">
+          <th:block th:case="'int'">
         <img th:src="'https://dota2.ru/img/heroes/' +
                 ${heroStats.localized_name
                 .toLowerCase()
@@ -29,22 +31,90 @@
                 .toLowerCase()
                 .replace(' ', '_')
                 .replace('-', '_')}  + '.png'"
-             th:alt="${heroStats.localized_name}">
-        <th:block th:switch="${heroStats.primary_attr}">
+             th:alt="${heroStats.localized_name}"
+             class="border border-primary rounded"
+             style="background-color: aliceblue"
+              width="100%">
+            <p class="btn btn-outline-primary w-100 mt-2" th:text="${heroStats.localized_name.toUpperCase()}"/>
+          </th:block>
           <th:block th:case="'agi'">
-            <div class="p-3 mb-2 bg-success text-white text-center d-flex justify-content-center" th:text="${heroStats.localized_name.toUpperCase()}"/>
+            <img th:src="'https://dota2.ru/img/heroes/' +
+                ${heroStats.localized_name
+                .toLowerCase()
+                .replace(' ', '_')
+                .replace('-', '_')} + '/' +
+                ${heroStats.localized_name
+                .toLowerCase()
+                .replace(' ', '_')
+                .replace('-', '_')}  + '.png'"
+                 th:alt="${heroStats.localized_name}"
+                 class="border border-success rounded"
+                 style="background-color: #f2f9f1"
+                 width="100%">
+            <p class="btn btn-outline-success w-100 mt-2" th:text="${heroStats.localized_name.toUpperCase()}"/>
           </th:block>
           <th:block th:case="'str'">
-            <div class="p-3 mb-2 bg-danger text-white text-center d-flex justify-content-center" th:text="${heroStats.localized_name.toUpperCase()}"/>
+            <img th:src="'https://dota2.ru/img/heroes/' +
+                ${heroStats.localized_name
+                .toLowerCase()
+                .replace(' ', '_')
+                .replace('-', '_')} + '/' +
+                ${heroStats.localized_name
+                .toLowerCase()
+                .replace(' ', '_')
+                .replace('-', '_')}  + '.png'"
+                 th:alt="${heroStats.localized_name}"
+                 class="border border-danger rounded"
+                 style="background-color: #FFF3F3"
+                 width="100%">
+            <p class="btn btn-outline-danger w-100 mt-2" th:text="${heroStats.localized_name.toUpperCase()}"/>
           </th:block>
-          <th:block th:case="'int'">
-            <div class="p-3 mb-2 bg-primary text-white text-center d-flex justify-content-center" th:text="${heroStats.localized_name.toUpperCase()}"/>
-          </th:block>
+          <table class="table table-hover mt-2">
+            <tbody>
+            <tr>
+              <th scope="row" class="h6">ID</th>
+              <td th:text="${heroStats.id}"/>
+            </tr>
+            <tr>
+              <th scope="row" class="h6">Тип атаки</th>
+              <th:block th:if="${heroStats.attack_type.equals('Melee')}">
+                <td th:text="'Ближний бой'"/>
+              </th:block>
+              <th:block th:unless="${heroStats.attack_type.equals('Melee')}">
+                <td th:text="'Дальний бой'"/>
+              </th:block>
+            </tr>
+            <th:block th:switch="${heroStats.primary_attr}">
+              <th:block th:case="'int'">
+                <tr>
+                  <th scope="row" class="h6">Аттрибут</th>
+                  <td th:text="'Интеллект'" class="text-primary"/>
+                </tr>
+              </th:block>
+              <th:block th:case="'agi'">
+                <tr>
+                  <th scope="row" class="h6">Аттрибут</th>
+                  <td th:text="'Ловкость'" class="text-success"/>
+                </tr>
+              </th:block>
+              <th:block th:case="'str'">
+                <tr>
+                  <th scope="row" class="h6">Аттрибут</th>
+                  <td th:text="'Сила'" class="text-danger"/>
+                </tr>
+              </th:block>
+            </th:block>
+            <tr>
+              <th scope="row" class="h6">Роли</th>
+              <td th:text="${heroStats.roles}"/>
+            </tr>
+            </tbody>
+          </table>
         </th:block>
       </div>
       <div class="px-5">
         <table class="table table-hover">
-          <caption>Основные аттрибуты</caption>
+          <caption>Основные характеристики</caption>
           <thead>
           <tr>
             <th scope="col"></th>
@@ -162,7 +232,7 @@
             <th scope="col"></th>
             <th scope="col">Ранг</th>
             <th scope="col">Кол-во пиков</th>
-            <th scope="col">Кол-во побед</th>
+            <th scope="col">Победы (%)</th>
           </tr>
           </thead>
           <tbody>
@@ -171,8 +241,8 @@
               <img src="../../static/images/herald.png" width="35" height="35" th:src="@{/images/herald.png}">
             </th>
             <td>Рекрут</td>
-            <td th:text="${heroStats.fifth_pick}"/>
-            <td th:text="${heroStats.fifth_win}"/>
+            <td th:text="${heroStats.first_pick}"/>
+            <td th:text="${winRates.get(0)}"/>
           </tr>
           <tr>
             <th scope="row">
@@ -180,7 +250,7 @@
             </th>
             <td>Страж</td>
             <td th:text="${heroStats.second_pick}"/>
-            <td th:text="${heroStats.second_win}"/>
+            <td th:text="${winRates.get(1)}"/>
           </tr>
           <tr>
             <th scope="row">
@@ -188,7 +258,7 @@
             </th>
             <td>Рыцарь</td>
             <td th:text="${heroStats.third_pick}"/>
-            <td th:text="${heroStats.third_win}"/>
+            <td th:text="${winRates.get(2)}"/>
           </tr>
           <tr>
             <th scope="row">
@@ -196,7 +266,7 @@
             </th>
             <td>Герой</td>
             <td th:text="${heroStats.fourth_pick}"/>
-            <td th:text="${heroStats.fourth_win}"/>
+            <td th:text="${winRates.get(3)}"/>
           </tr>
           <tr>
             <th scope="row">
@@ -204,7 +274,7 @@
             </th>
             <td>Легенда</td>
             <td th:text="${heroStats.fifth_pick}"/>
-            <td th:text="${heroStats.fifth_win}"/>
+            <td th:text="${winRates.get(4)}"/>
           </tr>
           <tr>
             <th scope="row">
@@ -212,7 +282,7 @@
             </th>
             <td>Властелин</td>
             <td th:text="${heroStats.sixth_pick}"/>
-            <td th:text="${heroStats.sixth_win}"/>
+            <td th:text="${winRates.get(5)}"/>
           </tr>
           <tr>
             <th scope="row">
@@ -220,15 +290,15 @@
             </th>
             <td>Божество</td>
             <td th:text="${heroStats.seventh_pick}"/>
-            <td th:text="${heroStats.seventh_win}"/>
+            <td th:text="${winRates.get(6)}"/>
           </tr>
           <tr>
             <th scope="row">
               <img src="../../static/images/immortal.png" width="35" height="35" th:src="@{/images/immortal.png}">
             </th>
-            <td>Титан+</td>
+            <td>Титан (+)</td>
             <td th:text="${heroStats.eighth_pick}"/>
-            <td th:text="${heroStats.eighth_win}"/>
+            <td th:text="${winRates.get(7)}"/>
           </tr>
           </tbody>
         </table>
