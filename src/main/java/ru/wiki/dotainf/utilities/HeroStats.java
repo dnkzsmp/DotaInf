@@ -1,5 +1,6 @@
 package ru.wiki.dotainf.utilities;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class HeroStats {
@@ -57,7 +58,8 @@ public class HeroStats {
     private Integer null_pick;
     private Integer null_win;
 
-    public HeroStats() {}
+    public HeroStats() {
+    }
 
     public HeroStats(
             Long id,
@@ -591,6 +593,19 @@ public class HeroStats {
 
     public void setNull_win(Integer null_win) {
         this.null_win = null_win;
+    }
+
+    public List<String> getWinRates() {
+        List<String> winRates = new ArrayList<>();
+        winRates.add(String.format("%.2f", (double) first_win / (double) first_pick * 100));
+        winRates.add(String.format("%.2f", (double) second_win / (double) second_pick * 100));
+        winRates.add(String.format("%.2f", (double) third_win / (double) third_pick * 100));
+        winRates.add(String.format("%.2f", (double) fourth_win / (double) fourth_pick * 100));
+        winRates.add(String.format("%.2f", (double) fifth_win / (double) fifth_pick * 100));
+        winRates.add(String.format("%.2f", (double) sixth_win / (double) sixth_pick * 100));
+        winRates.add(String.format("%.2f", (double) seventh_win / (double) seventh_pick * 100));
+        winRates.add(String.format("%.2f", (double) eighth_win / (double) eighth_pick * 100));
+        return winRates;
     }
 
     @Override
