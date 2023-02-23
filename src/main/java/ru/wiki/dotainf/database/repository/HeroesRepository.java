@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface HeroesRepository extends JpaRepository<Heroes, Long> {
     List<Heroes> findByHeroNameContaining(String infix);
+    Heroes findHeroById(Long id);
 }
