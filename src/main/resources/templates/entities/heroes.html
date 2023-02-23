@@ -6,7 +6,7 @@
     <link th:insert="sample.html :: link-href"/>
     <title>Герои | Dota Inf</title>
 </head>
-<body>
+<body class="d-flex flex-column min-vh-100">
     <header th:insert="sample.html :: header"></header>
 
     <div class="album py-5 bg-light bg-gradient">
@@ -19,13 +19,13 @@
 
         <div class="container">
             <div class="row d-flex justify-content-center">
-                <th:block th:each="heroStats: ${heroes}">
-                    <th:block th:if="(${heroStats.id} - 1) % 3 != 0">
+                <th:block th:each="hero: ${heroes}">
+                    <th:block th:if="${heroes.indexOf(hero)} % 3 != 0">
                         <div class="card col-sm-3 mx-2 shadow-sm">
                             <div class="card-body">
                                 <div class="d-flex flex-row">
-                                    <h5 class="card-title" th:text="${heroStats.heroName}"/>
-                                    <th:block th:switch="${heroStats.heroAttribute}">
+                                    <h5 class="card-title" th:text="${hero.heroName}"/>
+                                    <th:block th:switch="${hero.heroAttribute}">
                                         <th:block th:case="'Сила'">
                                             <img src="../../static/images/str.png" th:src="@{/images/str.png}" width="35" height="35" class="position-absolute top-0 end-0 mt-2 mx-3">
                                         </th:block>
@@ -41,35 +41,35 @@
                                     <tbody>
                                     <tr>
                                         <th scope="row" class="h6">ID</th>
-                                        <td th:text="${heroStats.id}"/>
+                                        <td th:text="${hero.id}"/>
                                     </tr>
                                     <tr>
                                         <th scope="row" class="h6">AT</th>
-                                        <th:block th:switch="${heroStats.heroAttribute}">
+                                        <th:block th:switch="${hero.heroAttribute}">
                                             <th:block th:case="'Сила'">
-                                                <td th:text="${heroStats.heroAttribute}" class="text-danger"/>
+                                                <td th:text="${hero.heroAttribute}" class="text-danger"/>
                                             </th:block>
                                             <th:block th:case="'Ловкость'">
-                                                <td th:text="${heroStats.heroAttribute}" class="text-success"/>
+                                                <td th:text="${hero.heroAttribute}" class="text-success"/>
                                             </th:block>
                                             <th:block th:case="'Интеллект'">
-                                                <td th:text="${heroStats.heroAttribute}" class="text-primary"/>
+                                                <td th:text="${hero.heroAttribute}" class="text-primary"/>
                                             </th:block>
                                         </th:block>
                                     </tr>
                                     </tbody>
                                 </table>
-                                <a th:href="'heroes/hero-stats/' + ${heroStats.heroName.toLowerCase().replace(' ', '-')}" class="btn btn-primary">Статы</a>
+                                <a th:href="'heroes/hero-stats/' + ${hero.id}" class="btn btn-primary">Хар-ки</a>
                             </div>
                         </div>
                     </th:block>
-                    <th:block th:unless="(${heroStats.id} - 1) % 3 != 0">
+                    <th:block th:unless="${heroes.indexOf(hero)} % 3 != 0">
                         <div class="w-100 py-2"></div>
                         <div class="card col-sm-3 mx-2 shadow-sm">
                             <div class="card-body">
                                 <div class="d-flex flex-row">
-                                    <h5 class="card-title" th:text="${heroStats.heroName}"/>
-                                    <th:block th:switch="${heroStats.heroAttribute}">
+                                    <h5 class="card-title" th:text="${hero.heroName}"/>
+                                    <th:block th:switch="${hero.heroAttribute}">
                                         <th:block th:case="'Сила'">
                                             <img src="../../static/images/str.png" th:src="@{/images/str.png}" width="35" height="35" class="position-absolute top-0 end-0 mt-2 mx-3">
                                         </th:block>
@@ -85,25 +85,25 @@
                                     <tbody>
                                     <tr>
                                         <th scope="row" class="h6">ID</th>
-                                        <td th:text="${heroStats.id}"/>
+                                        <td th:text="${hero.id}"/>
                                     </tr>
                                     <tr>
                                         <th scope="row" class="h6">AT</th>
-                                        <th:block th:switch="${heroStats.heroAttribute}">
+                                        <th:block th:switch="${hero.heroAttribute}">
                                             <th:block th:case="'Сила'">
-                                                <td th:text="${heroStats.heroAttribute}" class="text-danger"/>
+                                                <td th:text="${hero.heroAttribute}" class="text-danger"/>
                                             </th:block>
                                             <th:block th:case="'Ловкость'">
-                                                <td th:text="${heroStats.heroAttribute}" class="text-success"/>
+                                                <td th:text="${hero.heroAttribute}" class="text-success"/>
                                             </th:block>
                                             <th:block th:case="'Интеллект'">
-                                                <td th:text="${heroStats.heroAttribute}" class="text-primary"/>
+                                                <td th:text="${hero.heroAttribute}" class="text-primary"/>
                                             </th:block>
                                         </th:block>
                                     </tr>
                                     </tbody>
                                 </table>
-                                <a th:href="'heroes/hero-stats/' + ${heroStats.heroName.toLowerCase().replace(' ', '-')}" class="btn btn-primary">Статы</a>
+                                <a th:href="'heroes/hero-stats/' + ${hero.id}" class="btn btn-primary">Хар-ки</a>
                             </div>
                         </div>
                     </th:block>
