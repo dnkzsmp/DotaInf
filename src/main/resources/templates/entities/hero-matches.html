@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+<head>
+    <meta th:insert="sample.html :: meta-charset"/>
+    <meta th:insert="sample.html :: meta-name"/>
+    <link th:insert="sample.html :: link-href"/>
+    <title>Матчи | Dota Inf</title>
+</head>
+<body class="d-flex flex-column h-100">
+    <header th:insert="sample.html :: header"></header>
+
+    <main>
+        <div class="bd-example mx-5">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/heroes">Герои</a></li>
+                    <li class="breadcrumb-item active" aria-current="page" th:text="'Статистика: ' + ${heroName}">
+                </ol>
+            </nav>
+        </div>
+        <nav>
+            <div class="nav nav-tabs mb-3" id="nav-tab" role="tablist">
+                <a th:href="'/heroes/hero-stats/' + ${heroId}" class="nav-link" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Характеристики</a>
+                <a th:href="'/heroes/hero-matches/' + ${heroId}" class="nav-link active" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false" tabindex="-1">Статистика</a>
+                <a th:href="'/heroes/hero-items/' + ${heroId}" class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false" tabindex="-1">Закуп по стадиям</a>
+            </div>
+        </nav>
+
+        <div class="px-5">
+            <table class="table table-hover">
+                <caption th:text="'Последние 20 игр за ' + ${heroName} + ' в лигах'"/>
+                <thead>
+                <tr>
+                    <th scope="col">Название лиги</th>
+                    <th scope="col">ID матча</th>
+                    <th scope="col">Длительность</th>
+                    <th scope="col">Сторона</th>
+                    <th scope="col">Победа</th>
+                    <th scope="col">Убийств</th>
+                    <th scope="col">Смертей</th>
+                    <th scope="col">Ассистов</th>
+                </tr>
+                </thead>
+                <tbody>
+                    <th:block th:each="heroMatch: ${heroMatches}">
+                        <tr>
+                            <td scope="row" th:text="${heroMatch.league_name}"/>
+                            <td th:text="${heroMatch.match_id}"/>
+                            <td th:text="${heroMatch.duration
+                                        .toString()
+                                        .substring(0, heroMatch.duration.toString().length() / 2)} + ':' +
+                                        ${heroMatch.duration
+                                        .toString()
+                                        .substring(heroMatch.duration.toString().length() / 2, heroMatch.duration.toString().length())}"
+                            />
+                            <td th:text="${heroMatch.radiant} ? 'Свет' : 'Тьма'"/>
+                            <td th:text="${heroMatch.radiant_win} ? 'Свет' : 'Тьма'"/>
+                            <td th:text="${heroMatch.kills}"/>
+                            <td th:text="${heroMatch.deaths}"/>
+                            <td th:text="${heroMatch.assists}"/>
+                        </tr>
+                    </th:block>
+                </tbody>
+            </table>
+        </div>
+        <br>
+        <div class="px-5">
+            <table class="table table-hover">
+                <caption th:text="'Статистика матчей за ' + ${heroName} + ' против других героев (за сегодня)'"/>
+                <thead>
+                <tr>
+                    <th scope="col">Герой</th>
+                    <th scope="col">Кол-во игр</th>
+                    <th scope="col">Победы</th>
+                </tr>
+                </thead>
+                <tbody>
+                    <th:block th:each="heroMatchup: ${heroMatchups}">
+                        <tr>
+                            <th:block th:switch="${heroes.findHeroById(heroMatchup.hero_id).heroAttribute}">
+                                <th:block th:case="'Сила'">
+                                    <td scope="row">
+                                        <a th:href="'/heroes/hero-stats/' + ${heroMatchup.hero_id}"
+                                           th:text="${heroes.findHeroById(heroMatchup.hero_id).heroName}"
+                                           class="link-danger">
+                                        </a>
+                                    </td>
+                                </th:block>
+                                <th:block th:case="'Ловкость'">
+                                    <td scope="row">
+                                        <a th:href="'/heroes/hero-stats/' + ${heroMatchup.hero_id}"
+                                           th:text="${heroes.findHeroById(heroMatchup.hero_id).heroName}"
+                                           class="link-success">
+                                        </a>
+                                    </td>
+                                </th:block>
+                                <th:block th:case="'Интеллект'">
+                                    <td scope="row">
+                                        <a th:href="'/heroes/hero-stats/' + ${heroMatchup.hero_id}"
+                                           th:text="${heroes.findHeroById(heroMatchup.hero_id).heroName}"
+                                           class="link-primary">
+                                        </a>
+                                    </td>
+                                </th:block>
+                            </th:block>
+                            <td th:text="${heroMatchup.games_played}"/>
+                            <td th:text="${heroMatchup.wins}"/>
+                        </tr>
+                    </th:block>
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <footer th:insert="sample.html :: footer"></footer>
+</body>
+</html>
