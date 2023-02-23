@@ -1,10 +1,10 @@
-package ru.wiki.dotainf.utilities;
+package ru.wiki.dotainf.utilities.hero;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class HeroStats {
-    private Long id;
+    private Integer id;
     private String name;
     private String localized_name;
     private String primary_attr;
@@ -62,7 +62,7 @@ public class HeroStats {
     }
 
     public HeroStats(
-            Long id,
+            Integer id,
             String name,
             String localized_name,
             String primary_attr,
@@ -171,11 +171,11 @@ public class HeroStats {
         this.null_win = null_win;
     }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
