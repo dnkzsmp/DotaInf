@@ -7,7 +7,6 @@ import jakarta.persistence.*;
 public class Heroes {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @Column(name = "hname")
