@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+<head>
+  <meta th:insert="sample.html :: meta-charset"/>
+  <meta th:insert="sample.html :: meta-name"/>
+  <link th:insert="sample.html :: link-href"/>
+    <title>Закуп | DotaInf</title>
+</head>
+<body class="d-flex flex-column min-vh-100">
+  <header th:insert="sample.html :: header"></header>
+
+  <main>
+    <div class="bd-example mx-5">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="/heroes">Герои</a></li>
+          <li class="breadcrumb-item active" aria-current="page" th:text="'Закуп по стадиям: ' + ${hero.heroName}">
+        </ol>
+      </nav>
+    </div>
+    <nav>
+      <div class="nav nav-tabs mb-3" id="nav-tab" role="tablist">
+        <a th:href="'/heroes/hero-stats/' + ${hero.id}" class="nav-link" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Характеристики</a>
+        <a th:href="'/heroes/hero-matches/' + ${hero.id}" class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false" tabindex="-1">Статистика</a>
+        <a th:href="'/heroes/hero-items/' + ${hero.id}" class="nav-link active" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false" tabindex="-1">Закуп по стадиям</a>
+      </div>
+    </nav>
+  </main>
+
+  <footer th:insert="sample.html :: footer"></footer>
+</body>
+</html>
