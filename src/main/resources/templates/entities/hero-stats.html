@@ -6,7 +6,7 @@
   <link th:insert="sample.html :: link-href"/>
     <title th:text="${heroStats.localized_name} + ' | DotaInf'"></title>
 </head>
-<body>
+<body class="d-flex flex-column h-100">
   <header th:insert="sample.html :: header"></header>
   
   <main>
@@ -14,10 +14,17 @@
       <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="/heroes">Герои</a></li>
-          <li class="breadcrumb-item active" aria-current="page" th:text="${heroStats.localized_name}">
+          <li class="breadcrumb-item active" aria-current="page" th:text="'Характеристики: ' + ${heroStats.localized_name}">
         </ol>
       </nav>
     </div>
+    <nav>
+      <div class="nav nav-tabs mb-3" id="nav-tab" role="tablist">
+        <a th:href="'/heroes/hero-stats/' + ${heroStats.id}" class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Характеристики</a>
+        <a th:href="'/heroes/hero-matches/' + ${heroStats.id}" class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false" tabindex="-1">Статистика</a>
+        <a th:href="'/heroes/hero-items/' + ${heroStats.id}" class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false" tabindex="-1">Закуп по стадиям</a>
+      </div>
+    </nav>
     <div class="d-flex justify-content-left">
       <div class="shadow-lg h-50 d-inline-block p-3 mb-5 bg-white rounded-end border border-2 border-left-0">
         <th:block th:switch="${heroStats.primary_attr}">
