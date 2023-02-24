@@ -4,8 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import ru.wiki.dotainf.database.repository.AttributesRepository;
-import ru.wiki.dotainf.database.repository.ComponentsRepository;
 import ru.wiki.dotainf.database.repository.HeroesRepository;
 import ru.wiki.dotainf.database.repository.ItemsRepository;
 import ru.wiki.dotainf.database.tables.Heroes;
@@ -27,12 +25,6 @@ public class HeroesController {
     HeroesRepository heroesRepository;
 
     @Autowired
-    AttributesRepository attributesRepository;
-
-    @Autowired
-    ComponentsRepository componentsRepository;
-
-    @Autowired
     ItemsRepository itemsRepository;
 
 
@@ -46,7 +38,10 @@ public class HeroesController {
 
     @PostMapping
     public String heroesSearch(@ModelAttribute HeroesSearch heroesSearch, Model model) {
-        List<Heroes> heroes = heroesRepository.findByHeroNameContaining(heroesSearch.getSearchText());
+        List<Heroes> heroes = heroesRepository.findAll();
+        heroes.removeIf(hero -> (
+                !hero.getHeroName().toLowerCase().contains(heroesSearch.getSearchText().toLowerCase()))
+        );
         model.addAttribute("heroes", heroes);
         return "entities/heroes";
     }
