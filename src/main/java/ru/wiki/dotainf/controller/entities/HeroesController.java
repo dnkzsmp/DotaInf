@@ -4,12 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import ru.wiki.dotainf.database.repository.AttributesRepository;
+import ru.wiki.dotainf.database.repository.ComponentsRepository;
 import ru.wiki.dotainf.database.repository.HeroesRepository;
 import ru.wiki.dotainf.database.repository.ItemsRepository;
 import ru.wiki.dotainf.database.tables.Heroes;
-import ru.wiki.dotainf.database.tables.Items;
 import ru.wiki.dotainf.reader.JsonReader;
-import ru.wiki.dotainf.utilities.app.Counter;
 import ru.wiki.dotainf.utilities.hero.HeroMatches;
 import ru.wiki.dotainf.utilities.hero.HeroMatchups;
 import ru.wiki.dotainf.utilities.hero.HeroStats;
@@ -17,6 +17,7 @@ import ru.wiki.dotainf.utilities.hero.HeroesSearch;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.List;
 
 @Controller
@@ -26,14 +27,20 @@ public class HeroesController {
     HeroesRepository heroesRepository;
 
     @Autowired
+    AttributesRepository attributesRepository;
+
+    @Autowired
+    ComponentsRepository componentsRepository;
+
+    @Autowired
     ItemsRepository itemsRepository;
+
 
     @GetMapping
     public String heroes(Model model) {
         List<Heroes> heroes = heroesRepository.findAll();
         model.addAttribute("heroes", heroes);
         model.addAttribute("heroesSearch", new HeroesSearch());
-        model.addAttribute("counter", new Counter());
         return "entities/heroes";
     }
 
@@ -78,11 +85,13 @@ public class HeroesController {
 
     @GetMapping("/hero-items/{id}")
     public String heroItems(@PathVariable("id") Integer id, Model model) throws IOException {
-        List<Items> items = itemsRepository.findAll();
-        Heroes hero = heroesRepository.findHeroById(id.longValue());
-        var a = JsonReader.getHeroItemStagesFromApi(id);
-        model.addAttribute("items", items);
-        model.addAttribute("hero", hero);
+        List<HashMap<Integer, Integer>> itemStages = JsonReader.getItemStagesByIdFromApi(id);
+        String heroName = heroesRepository.findHeroById(id.longValue()).getHeroName();
+
+        model.addAttribute("id", id);
+        model.addAttribute("itemStages", itemStages);
+        model.addAttribute("heroName", heroName);
+        model.addAttribute("itemsRepository", itemsRepository);
         return "entities/hero-items";
     }
 
