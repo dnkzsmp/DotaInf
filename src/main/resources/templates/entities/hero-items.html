@@ -42,7 +42,11 @@
               <th scope="col">
                 <img th:src="'https://cdn.dota2.com/' + ${itemsRepository.findItemsById(pair.key).getImg()}" width="50" height="38">
               </th>
-              <td scope="row" th:text="${itemsRepository.findItemsById(pair.key).getDname()}"/>
+              <td scope="row">
+                <a th:href="'/items/' + ${pair.key}"
+                   th:text="${itemsRepository.findItemsById(pair.key).getDname()}"
+                   class="link-dark"/>
+              </td>
               <td th:text="${pair.value}"/>
             </tr>
           </th:block>
@@ -66,7 +70,11 @@
               <th scope="col">
                 <img th:src="'https://cdn.dota2.com/' + ${itemsRepository.findItemsById(pair.key).getImg()}" width="50" height="38">
               </th>
-              <td scope="row" th:text="${itemsRepository.findItemsById(pair.key).getDname()}"/>
+              <td scope="row">
+                <a th:href="'/items/' + ${pair.key}"
+                   th:text="${itemsRepository.findItemsById(pair.key).getDname()}"
+                   class="link-dark"/>
+              </td>
               <td th:text="${pair.value}"/>
             </tr>
           </th:block>
@@ -92,7 +100,11 @@
               <th scope="col">
                 <img th:src="'https://cdn.dota2.com/' + ${itemsRepository.findItemsById(pair.key).getImg()}" width="50" height="38">
               </th>
-              <td scope="row" th:text="${itemsRepository.findItemsById(pair.key).getDname()}"/>
+              <td scope="row">
+                <a th:href="'/items/' + ${pair.key}"
+                   th:text="${itemsRepository.findItemsById(pair.key).getDname()}"
+                   class="link-dark"/>
+              </td>
               <td th:text="${pair.value}"/>
             </tr>
           </th:block>
@@ -116,7 +128,11 @@
               <th scope="col">
                 <img th:src="'https://cdn.dota2.com/' + ${itemsRepository.findItemsById(pair.key).getImg()}" width="50" height="38">
               </th>
-              <td scope="row" th:text="${itemsRepository.findItemsById(pair.key).getDname()}"/>
+              <td scope="row">
+                <a th:href="'/items/' + ${pair.key}"
+                   th:text="${itemsRepository.findItemsById(pair.key).getDname()}"
+                   class="link-dark"/>
+              </td>
               <td th:text="${pair.value}"/>
             </tr>
           </th:block>

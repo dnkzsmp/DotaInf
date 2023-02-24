@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+<head>
+  <meta th:insert="sample.html :: meta-charset"/>
+  <meta th:insert="sample.html :: meta-name"/>
+  <link th:insert="sample.html :: link-href"/>
+  <title>Предмет | Dota Inf</title>
+</head>
+<body>
+  <header th:insert="sample.html :: header"></header>
+
+  <main>
+    <div class="bd-example mx-5">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="/items">Предметы</a></li>
+          <li class="breadcrumb-item active" aria-current="page" th:text="${item.dname}">
+        </ol>
+      </nav>
+    </div>
+
+    <div class="d-flex justify-content-left mx-5 border border-start-0 rounded mb-3">
+      <div class="card shadow-lg h-50" style="width: 18rem;">
+        <img th:src="'https://cdn.dota2.com/' + ${item.img}" width="80" height="80" class="rounded mx-auto mt-2 d-block">
+        <div class="card-body">
+          <h5 th:text="${item.dname}" class="card-title text-center"/>
+          <th:block th:switch="${item.lore}">
+            <p th:case="'Отсутствуют'" th:text="'Лор отсутствует у данного предмета'" class="card-text"/>
+            <p th:case="*" th:text="${item.lore}" class="card-text"/>
+          </th:block>
+        </div>
+        <table class="table table-hover mt-2 mx-auto">
+          <tbody>
+            <tr>
+              <th scope="row" class="h6">ID</th>
+              <td>
+                <span th:text="${item.id}" class="badge rounded-pill bg-secondary"/>
+              </td>
+            </tr>
+            <tr>
+              <th scope="row" class="h6">Стоимость</th>
+              <td>
+                <th:block th:switch="${item.cost}">
+                  <span th:case="0" th:text="'-'" class="badge rounded-pill bg-dark mb-1"/>
+                  <span th:case="*" th:text="${item.cost}"
+                        class="badge rounded-pill text-bg-warning mb-1"/>
+                </th:block>
+              </td>
+            </tr>
+            <tr>
+              <th scope="row" class="h6">Категория</th>
+              <td>
+                <th:block th:switch="${item.qual}">
+                  <p th:case="'artifact'" th:text="'Артефакт'" class="fw-normal mb-1"/>
+                  <p th:case="'epic'" th:text="'Эпичный'" class="fw-normal mb-1"/>
+                  <p th:case="'component'" th:text="'Компонент'" class="fw-normal mb-1"/>
+                  <p th:case="'rare'" th:text="'Редкий'" class="fw-normal mb-1"/>
+                  <p th:case="'consumable'" th:text="'Расходник'" class="fw-normal mb-1"/>
+                  <p th:case="'common'" th:text="'Общий'" class="fw-normal mb-1"/>
+                  <p th:case="null" th:text="'Нейтральный предмет'" class="fw-normal mb-1"/>
+                  <p th:case="'secret_shop'" th:text="'Из потайной лавки'" class="fw-normal mb-1"/>
+                </th:block>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="px-5">
+        <th:block th:if="${!comp.isEmpty() &&
+                              comp != null &&
+                              !item.getDname().equals('Blink Dagger') &&
+                              !item.getDname().endsWith('Recipe')}">
+          <table class="table table-hover mt-2">
+            <caption>Компоненты для крафта предмета</caption>
+            <thead>
+            <tr>
+              <th scope="col">Предмет</th>
+              <th scope="col">Стоимость</th>
+            </tr>
+            </thead>
+            <tbody>
+              <th:block th:each="cmp : ${comp}">
+                <tr>
+                  <td scope="row">
+                    <div class="d-flex align-items-center">
+                      <a th:href="${itemsRepo.findItemsByNodeName(cmp.name).id}">
+                        <img th:src="'https://cdn.dota2.com/' + ${itemsRepo.findItemsByNodeName(cmp.name).img}"
+                           th:alt="${itemsRepo.findItemsByNodeName(cmp.name).dname}"
+                           width="50" height="45"
+                           class="rounded-circle">
+                      </a>
+                      <div class="ms-3">
+                        <p class="fw-bold mb-1" th:text="${itemsRepo.findItemsByNodeName(cmp.name).dname}"/>
+                        <span th:text="'ID: ' + ${itemsRepo.findItemsByNodeName(cmp.name).id}" class="badge rounded-pill bg-secondary"/>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <th:block th:switch="${itemsRepo.findItemsByNodeName(cmp.name).cost}">
+                      <span th:case="0" th:text="'-'" class="badge rounded-pill bg-dark mb-1"/>
+                      <span th:case="*" th:text="${itemsRepo.findItemsByNodeName(cmp.name).cost}"
+                            class="badge rounded-pill text-bg-warning mb-1"/>
+                    </th:block>
+                  </td>
+                </tr>
+              </th:block>
+            </tbody>
+          </table>
+        </th:block>
+        <th:block th:unless="${!comp.isEmpty() &&
+                              comp != null &&
+                              !item.getDname().equals('Blink Dagger') &&
+                              !item.getDname().endsWith('Recipe')}">
+          <table class="table table-hover mt-2">
+            <caption>Компоненты для крафта предмета</caption>
+            <thead>
+            <tr>
+              <th scope="col">Предмет</th>
+              <th scope="col">Стоимость</th>
+            </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td colspan="2" class="bg-danger text-white">Данный предмет нельзя скрафтить</td>
+              </tr>
+            </tbody>
+          </table>
+        </th:block>
+      </div>
+
+      <div class="px-5">
+        <th:block th:if="${!attr.isEmpty() && attr != null}">
+          <table class="table table-hover mt-2">
+            <caption>Аттрибуты предмета</caption>
+            <thead>
+            <tr>
+              <th scope="col">Аттрибут</th>
+            </tr>
+            </thead>
+            <tbody>
+              <th:block th:each="at: ${attr}">
+                <tr>
+                  <td th:text="${at.getHeader() + ' ' + at.getValue() + ' ' + at.getFooter()}"/>
+                </tr>
+              </th:block>
+            </tbody>
+          </table>
+        </th:block>
+        <th:block th:unless="${!attr.isEmpty() && attr != null}">
+          <table class="table table-hover mt-2">
+            <caption>Аттрибуты предмета</caption>
+            <thead>
+            <tr>
+              <th scope="col">Аттрибут</th>
+            </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td th:text="'У данного предмета отсутсвуют аттрибуты'" class="bg-danger text-white"/>
+              </tr>
+            </tbody>
+          </table>
+        </th:block>
+      </div>
+
+      <div class="px-5">
+        <table class="table table-hover mt-2">
+          <caption>Хар-ки предмета</caption>
+          <thead>
+            <tr>
+              <th scope="col">Название</th>
+              <th scope="col">Значение</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td scope="row">Перезарядка</td>
+              <td>
+              <th:block th:switch="${item.cd}">
+                  <span th:case="-1" th:text="'-'" class="badge rounded-pill bg-danger"/>
+                  <span th:case="*" th:text="${item.cd}" class="badge rounded-pill bg-success"/>
+              </th:block>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">Крафтовый</td>
+              <td>
+              <th:block th:switch="${item.created}">
+                  <span th:case="-1" th:text="'-'" class="badge rounded-pill bg-danger"/>
+                  <span th:case="*" th:text="'+'" class="badge rounded-pill bg-success"/>
+              </th:block>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">Кол-во зарядов</td>
+              <td>
+                <th:block th:switch="${item.charges}">
+                  <span th:case="0" th:text="'-'" class="badge rounded-pill bg-danger"/>
+                  <span th:case="*" th:text="${item.charges}" class="badge rounded-pill bg-success"/>
+                </th:block>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">Манакост</td>
+              <td>
+                <th:block th:switch="${item.mc}">
+                  <span th:case="-1" th:text="'-'" class="badge rounded-pill bg-danger"/>
+                  <span th:case="*" th:text="${item.mc}" class="badge rounded-pill text-bg-info"/>
+                </th:block>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="d-flex justify-content-left">
+      <div class="px-5">
+        <th:block th:if="${item.hint != null && !item.hint.isEmpty()}">
+          <div class="alert alert-primary alert-dismissible fade show w-50" th:text="${item.hint}"/>
+        </th:block>
+        <th:block th:unless="${item.hint != null && !item.hint.isEmpty()}">
+          <div class="alert alert-primary alert-dismissible fade show w-75" th:text="'Способности у предмета отсутствуют'"/>
+        </th:block>
+      </div>
+    </div>
+  </main>
+
+  <footer th:insert="sample.html :: footer"></footer>
+</body>
+</html>
