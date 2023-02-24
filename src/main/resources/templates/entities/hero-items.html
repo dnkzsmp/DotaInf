@@ -14,17 +14,116 @@
       <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="/heroes">Герои</a></li>
-          <li class="breadcrumb-item active" aria-current="page" th:text="'Закуп по стадиям: ' + ${hero.heroName}">
+          <li class="breadcrumb-item active" aria-current="page" th:text="'Закуп по стадиям: ' + ${heroName}">
         </ol>
       </nav>
     </div>
     <nav>
       <div class="nav nav-tabs mb-3" id="nav-tab" role="tablist">
-        <a th:href="'/heroes/hero-stats/' + ${hero.id}" class="nav-link" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Характеристики</a>
-        <a th:href="'/heroes/hero-matches/' + ${hero.id}" class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false" tabindex="-1">Статистика</a>
-        <a th:href="'/heroes/hero-items/' + ${hero.id}" class="nav-link active" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false" tabindex="-1">Закуп по стадиям</a>
+        <a th:href="'/heroes/hero-stats/' + ${id}" class="nav-link" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Характеристики</a>
+        <a th:href="'/heroes/hero-matches/' + ${id}" class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false" tabindex="-1">Статистика</a>
+        <a th:href="'/heroes/hero-items/' + ${id}" class="nav-link active" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false" tabindex="-1">Закуп по стадиям</a>
       </div>
     </nav>
+    <div class="d-flex justify-content-left row">
+      <div class="px-5 col-sm">
+        <table class="table table-hover">
+          <caption th:text="'Популярные предметы в стартовой стадии (за месяц)'"/>
+          <thead>
+          <tr>
+            <th scope="col">Иконка</th>
+            <th scope="col">Название предмета</th>
+            <th scope="col">Среднее кол-во покупок</th>
+          </tr>
+          </thead>
+          <tbody>
+          <th:block th:each="pair: ${itemStages.get(0)}">
+            <tr>
+              <th scope="col">
+                <img th:src="'https://cdn.dota2.com/' + ${itemsRepository.findItemsById(pair.key).getImg()}" width="50" height="38">
+              </th>
+              <td scope="row" th:text="${itemsRepository.findItemsById(pair.key).getDname()}"/>
+              <td th:text="${pair.value}"/>
+            </tr>
+          </th:block>
+          </tbody>
+        </table>
+        </div>
+
+      <div class="px-5 col-sm">
+        <table class="table table-hover">
+          <caption th:text="'Популярные предметы на ранней стадии (за месяц)'"/>
+          <thead>
+          <tr>
+            <th scope="col">Иконка</th>
+            <th scope="col">Название предмета</th>
+            <th scope="col">Среднее кол-во покупок</th>
+          </tr>
+          </thead>
+          <tbody>
+          <th:block th:each="pair: ${itemStages.get(1)}">
+            <tr>
+              <th scope="col">
+                <img th:src="'https://cdn.dota2.com/' + ${itemsRepository.findItemsById(pair.key).getImg()}" width="50" height="38">
+              </th>
+              <td scope="row" th:text="${itemsRepository.findItemsById(pair.key).getDname()}"/>
+              <td th:text="${pair.value}"/>
+            </tr>
+          </th:block>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="d-flex justify-content-left row">
+      <div class="px-5 col-sm">
+        <table class="table table-hover">
+          <caption th:text="'Популярные предметы на средней стадии (за месяц)'"/>
+          <thead>
+          <tr>
+            <th scope="col">Иконка</th>
+            <th scope="col">Название предмета</th>
+            <th scope="col">Среднее кол-во покупок</th>
+          </tr>
+          </thead>
+          <tbody>
+          <th:block th:each="pair: ${itemStages.get(2)}">
+            <tr>
+              <th scope="col">
+                <img th:src="'https://cdn.dota2.com/' + ${itemsRepository.findItemsById(pair.key).getImg()}" width="50" height="38">
+              </th>
+              <td scope="row" th:text="${itemsRepository.findItemsById(pair.key).getDname()}"/>
+              <td th:text="${pair.value}"/>
+            </tr>
+          </th:block>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="px-5 col-sm">
+        <table class="table table-hover">
+          <caption th:text="'Популярные предметы на поздней стадии (за месяц)'"/>
+          <thead>
+          <tr>
+            <th scope="col">Иконка</th>
+            <th scope="col">Название предмета</th>
+            <th scope="col">Среднее кол-во покупок</th>
+          </tr>
+          </thead>
+          <tbody>
+          <th:block th:each="pair: ${itemStages.get(3)}">
+            <tr>
+              <th scope="col">
+                <img th:src="'https://cdn.dota2.com/' + ${itemsRepository.findItemsById(pair.key).getImg()}" width="50" height="38">
+              </th>
+              <td scope="row" th:text="${itemsRepository.findItemsById(pair.key).getDname()}"/>
+              <td th:text="${pair.value}"/>
+            </tr>
+          </th:block>
+          </tbody>
+        </table>
+      </div>
+    </div>
   </main>
 
   <footer th:insert="sample.html :: footer"></footer>
