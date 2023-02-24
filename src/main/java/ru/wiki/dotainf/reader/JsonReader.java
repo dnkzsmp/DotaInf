@@ -5,14 +5,11 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.jetbrains.annotations.NotNull;
 import ru.wiki.dotainf.database.tables.Heroes;
-import ru.wiki.dotainf.database.tables.Items;
 import ru.wiki.dotainf.utilities.hero.HeroMatches;
 import ru.wiki.dotainf.utilities.hero.HeroMatchups;
 import ru.wiki.dotainf.utilities.hero.HeroStats;
 
-import java.io.File;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -150,44 +147,39 @@ public class JsonReader {
         return heroes;
     }
 
-    public static List<Items> getItemsFromApi() throws IOException {
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-        JsonNode jsonTree = mapper.readTree(new File("C:\\Users\\Danil\\Desktop\\УЧЕБА\\dotainf\\src\\main\\resources\\json\\items.json"));
-        Iterator<JsonNode> itemsNodes = jsonTree.elements();
-        List<Items> items = new ArrayList<>();
-
-        while (itemsNodes.hasNext()) {
-            JsonNode itemNode = itemsNodes.next();
-
-            Items item = new Items(
-                    itemNode.get("id").asLong(),
-                    itemNode.get("name").asText(),
-                    itemNode.get("cost").asInt(),
-                    itemNode.get("secret_shop").asInt(),
-                    itemNode.get("side_shop").asInt(),
-                    itemNode.get("recipe").asInt(),
-                    itemNode.get("localized_name").asText()
-            );
-            items.add(item);
-        }
-
-        return items;
-    }
-
-    public static HashMap<Integer, Integer> getHeroItemStagesFromApi(@NotNull Integer id) throws IOException {
+    public static List<HashMap<Integer, Integer>> getItemStagesByIdFromApi(@NotNull Integer id) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         JsonNode jsonTree = mapper.readTree(
                 new URL("https://api.opendota.com/api/heroes/" + id + "/itemPopularity")
         );
         Iterator<JsonNode> itemStagesNodes = jsonTree.elements();
-        List<HashMap<Integer, Integer>> stages = new ArrayList<>();
+        List<HashMap<Integer, Integer>> itemStages = new ArrayList<>();
+
         while (itemStagesNodes.hasNext()) {
             JsonNode itemStagesNode = itemStagesNodes.next();
-            itemStagesNode.fieldNames();
+            HashMap<Integer, Integer> items = new HashMap<>();
+            List<Integer> idsOfItems = new ArrayList<>();
+            List<Integer> itemPurchaseCounts = new ArrayList<>();
+
+            for (Iterator<String> it = itemStagesNode.fieldNames(); it.hasNext(); ) {
+                String itemId = it.next();
+                try {
+                    idsOfItems.add(Integer.parseInt(itemId));
+                    itemPurchaseCounts.add(itemStagesNode.get(itemId).asInt());
+                    items.put(
+                            idsOfItems.get(idsOfItems.size() - 1),
+                            itemPurchaseCounts.get(itemPurchaseCounts.size() - 1)
+                    );
+                } catch (NumberFormatException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            itemStages.add(items);
         }
 
-        return null;
+        return itemStages;
     }
+
 }
