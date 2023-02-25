@@ -1,5 +1,6 @@
 package ru.wiki.dotainf.database.tables;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -8,6 +9,7 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "attribs")
 public class Attributes {
+    @JsonIgnore
     @Id
     private Integer id;
     @Column(name = "itemid")
