@@ -12,6 +12,8 @@ import ru.wiki.dotainf.utilities.hero.HeroMatchups;
 import ru.wiki.dotainf.utilities.hero.HeroStats;
 
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:8080")
@@ -27,7 +29,7 @@ public class HeroesApiController {
         try {
             List<Heroes> heroes = heroesRepository.findAll();
             if (heroes.isEmpty()) {
-                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+                return new ResponseEntity<>(new ArrayList<>(), HttpStatus.NO_CONTENT);
             }
             return new ResponseEntity<>(heroes, HttpStatus.OK);
         } catch (Exception e) {
@@ -35,7 +37,20 @@ public class HeroesApiController {
         }
     }
 
-    @GetMapping("/hero-stats/{id}")
+    @GetMapping("/{id}")
+    public ResponseEntity<Heroes> getHeroById(@PathVariable("id") Long id) {
+        try {
+            Heroes hero = heroesRepository.findHeroById(id);
+            if (hero == null) {
+                return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+            }
+            return new ResponseEntity<>(hero, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("/{id}/stats")
     public ResponseEntity<HeroStats> getHeroStatsById(@PathVariable(value = "id") Integer id) {
         try {
             if (id == null) {
@@ -46,7 +61,7 @@ public class HeroesApiController {
                     new URL("https://api.opendota.com/api/heroStats")
             );
             if (heroStats == null) {
-                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+                return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
             }
             return new ResponseEntity<>(heroStats, HttpStatus.OK);
         } catch (Exception e) {
@@ -54,7 +69,7 @@ public class HeroesApiController {
         }
     }
 
-    @GetMapping("/hero-matches/leagues/{id}")
+    @GetMapping("/{id}/leagues")
     public ResponseEntity<List<HeroMatches>> getHeroLeagueMatchesById(@PathVariable(value = "id") Integer id)  {
         try {
             if (id == null) {
@@ -64,7 +79,7 @@ public class HeroesApiController {
                     new URL("https://api.opendota.com/api/heroes/" + id + "/matches")
             );
             if (heroMatches.isEmpty()) {
-                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+                return new ResponseEntity<>(new ArrayList<>(), HttpStatus.NO_CONTENT);
             }
             return new ResponseEntity<>(heroMatches, HttpStatus.OK);
         } catch (Exception e) {
@@ -72,7 +87,7 @@ public class HeroesApiController {
         }
     }
 
-    @GetMapping("/hero-matches/matchups/{id}")
+    @GetMapping("/{id}/matchups")
     public ResponseEntity<List<HeroMatchups>> getHeroMatchupsById(@PathVariable(value = "id") Integer id) {
         try {
             if (id == null) {
@@ -82,9 +97,55 @@ public class HeroesApiController {
                     new URL("https://api.opendota.com/api/heroes/" + id + "/matchups")
             );
             if (heroMatchups.isEmpty()) {
-                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+                return new ResponseEntity<>(new ArrayList<>(), HttpStatus.NO_CONTENT);
             }
             return new ResponseEntity<>(heroMatchups, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("/{id}/{stage}")
+    public ResponseEntity<HashMap<Integer, Integer>> getItemStageOfHeroById(
+            @PathVariable("id") Integer id, @PathVariable("stage") String stage
+    ) {
+        try {
+            if (id == null) {
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            }
+            List<HashMap<Integer, Integer>> itemStages = JsonReader.getItemStagesByIdFromApi(id);
+            if (itemStages.isEmpty()) {
+                return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+            }
+            HashMap<Integer, Integer> itemStage = switch (stage) {
+                case "start" -> itemStages.get(0);
+                case "early" -> itemStages.get(1);
+                case "middle" -> itemStages.get(2);
+                case "late" -> itemStages.get(3);
+                default -> null;
+            };
+            if (itemStage == null || itemStage.isEmpty()) {
+                return new ResponseEntity<>(new HashMap<>(), HttpStatus.NO_CONTENT);
+            }
+            return new ResponseEntity<>(itemStage, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("/{id}/all")
+    public ResponseEntity<List<HashMap<Integer, Integer>>> getAllItemStagesOfHeroById(
+            @PathVariable("id") Integer id
+    ) {
+        try {
+            if (id == null) {
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            }
+            List<HashMap<Integer, Integer>> itemStages = JsonReader.getItemStagesByIdFromApi(id);
+            if (itemStages.size() != 4) {
+                return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+            }
+            return new ResponseEntity<>(itemStages, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
