@@ -3,18 +3,15 @@ package ru.wiki.dotainf.controller.entities;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import ru.wiki.dotainf.database.repository.AttributesRepository;
 import ru.wiki.dotainf.database.repository.ComponentsRepository;
-import ru.wiki.dotainf.database.repository.HeroesRepository;
 import ru.wiki.dotainf.database.repository.ItemsRepository;
 import ru.wiki.dotainf.database.tables.Attributes;
 import ru.wiki.dotainf.database.tables.Components;
 import ru.wiki.dotainf.database.tables.Items;
+import ru.wiki.dotainf.utilities.hero.ItemsSearch;
 
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -31,10 +28,25 @@ class ItemsController {
     @GetMapping
     public String items(Model model) {
         List<Items> items = itemsRepository.findAll();
-        items.sort(Comparator.comparing(Items::getId));
         items.removeIf(item -> (item.getNodeName().startsWith("recipe_")));
         items.removeIf(item -> (item.getDname() == null));
         items.removeIf(item -> (item.getDname().isEmpty()));
+        items.sort(Comparator.comparing(Items::getDname));
+        model.addAttribute("items", items);
+        model.addAttribute("itemsSearch", new ItemsSearch());
+        return "entities/items";
+    }
+
+    @PostMapping
+    public String itemsSearch(@ModelAttribute ItemsSearch itemsSearch, Model model) {
+        List<Items> items = itemsRepository.findAll();
+        items.removeIf(item -> (item.getNodeName().startsWith("recipe_")));
+        items.removeIf(item -> (item.getDname() == null));
+        items.removeIf(item -> (item.getDname().isEmpty()));
+        items.removeIf(item -> (
+                !item.getDname().toLowerCase().contains(itemsSearch.getSearchText().toLowerCase()))
+        );
+        items.sort(Comparator.comparing(Items::getDname));
         model.addAttribute("items", items);
         return "entities/items";
     }
