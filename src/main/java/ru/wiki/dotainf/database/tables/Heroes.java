@@ -1,7 +1,13 @@
 package ru.wiki.dotainf.database.tables;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+@Getter
+@Setter
+@NoArgsConstructor
 @Entity
 @Table(name = "heroes")
 public class Heroes {
@@ -18,43 +24,9 @@ public class Heroes {
     @Column(name = "hrole")
     private String heroRole;
 
-    public Heroes() {}
-
     public Heroes(String heroName, String heroAttribute, String heroRole) {
         this.heroName = heroName;
         this.heroAttribute = heroAttribute;
-        this.heroRole = heroRole;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getHeroName() {
-        return heroName;
-    }
-
-    public void setHeroName(String heroName) {
-        this.heroName = heroName;
-    }
-
-    public String getHeroAttribute() {
-        return heroAttribute;
-    }
-
-    public void setHeroAttribute(String heroAttribute) {
-        this.heroAttribute = heroAttribute;
-    }
-
-    public String getHeroRole() {
-        return heroRole;
-    }
-
-    public void setHeroRole(String heroRole) {
         this.heroRole = heroRole;
     }
 

@@ -4,7 +4,15 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "items")
 public class Items {
@@ -47,125 +55,22 @@ public class Items {
     @Column(name = "charges")
     private Integer charges;
 
-    public Items() {}
-
-    public Items(String nodeName, String hint, Integer id, String img, String dname, String qual, Integer cost, String notes, Integer mc, Integer cd, String lore, Integer created, Integer charges) {
-        this.nodeName = nodeName;
-        this.hint = hint;
-        this.id = id;
-        this.img = img;
-        this.dname = dname;
-        this.qual = qual;
-        this.cost = cost;
-        this.notes = notes;
-        this.mc = mc;
-        this.cd = cd;
-        this.lore = lore;
-        this.created = created;
-        this.charges = charges;
-    }
-
-    public String getNodeName() {
-        return nodeName;
-    }
-
-    public void setNodeName(String nodeName) {
-        this.nodeName = nodeName;
-    }
-
-    public String getHint() {
-        return hint;
-    }
-
-    public void setHint(String hint) {
-        this.hint = hint;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getImg() {
-        return img;
-    }
-
-    public void setImg(String img) {
-        this.img = img;
-    }
-
-    public String getDname() {
-        return dname;
-    }
-
-    public void setDname(String dname) {
-        this.dname = dname;
-    }
-
-    public String getQual() {
-        return qual;
-    }
-
-    public void setQual(String qual) {
-        this.qual = qual;
-    }
-
-    public Integer getCost() {
-        return cost;
-    }
-
-    public void setCost(Integer cost) {
-        this.cost = cost;
-    }
-
-    public String getNotes() {
-        return notes;
-    }
-
-    public void setNotes(String notes) {
-        this.notes = notes;
-    }
-
-    public Integer getMc() {
-        return mc;
-    }
-
-    public void setMc(Integer mc) {
-        this.mc = mc;
-    }
-
-    public Integer getCd() {
-        return cd;
-    }
-
-    public void setCd(Integer cd) {
-        this.cd = cd;
-    }
-
-    public String getLore() {
-        return lore;
-    }
-
-    public void setLore(String lore) {
-        this.lore = lore;
-    }
-
-    public Integer getCreated() {
-        return created;
-    }
-
-    public void setCreated(Integer created) {
-        this.created = created;
-    }
-
-    public Integer getCharges() {
-        return charges;
-    }
-
-    public void setCharges(Integer charges) {
-        this.charges = charges;
+    @Override
+    public String toString() {
+        return "Items\n{" +
+                "\n\tnodeName = '" + nodeName + '\'' +
+                ",\n\t hint = '" + hint + '\'' +
+                ",\n\t id = " + id +
+                ",\n\t img = '" + img + '\'' +
+                ",\n\t dname = '" + dname + '\'' +
+                ",\n\t qual = '" + qual + '\'' +
+                ",\n\t cost = " + cost +
+                ",\n\t notes = '" + notes + '\'' +
+                ",\n\t mc = " + mc +
+                ",\n\t cd = " + cd +
+                ",\n\t lore = '" + lore + '\'' +
+                ",\n\t created = " + created +
+                ",\n\t charges = " + charges +
+                "\n}";
     }
 }
