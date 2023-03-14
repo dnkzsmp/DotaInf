@@ -15,6 +15,8 @@ import ru.wiki.dotainf.utilities.hero.HeroesSearch;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 
@@ -31,6 +33,7 @@ public class HeroesController {
     @GetMapping
     public String heroes(Model model) {
         List<Heroes> heroes = heroesRepository.findAll();
+        heroes.sort(Comparator.comparing(Heroes::getHeroName));
         model.addAttribute("heroes", heroes);
         model.addAttribute("heroesSearch", new HeroesSearch());
         return "entities/heroes";
@@ -42,6 +45,7 @@ public class HeroesController {
         heroes.removeIf(hero -> (
                 !hero.getHeroName().toLowerCase().contains(heroesSearch.getSearchText().toLowerCase()))
         );
+        heroes.sort(Comparator.comparing(Heroes::getHeroName));
         model.addAttribute("heroes", heroes);
         return "entities/heroes";
     }
@@ -55,6 +59,13 @@ public class HeroesController {
         if (heroStats == null) {
             throw new Exception("Героя под ID = " + id + " не существует");
         }
+
+        String roles = Arrays.toString(heroStats.getRoles().toArray())
+                .replace("[", "")
+                .replace("]", "")
+                .replace(", ", " | ");
+
+        model.addAttribute("roles", roles);
         model.addAttribute("heroStats", heroStats);
         model.addAttribute("winRates", heroStats.getWinRates());
         return "entities/hero-stats";
