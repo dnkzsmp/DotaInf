@@ -9,16 +9,37 @@
 <body>
     <header th:insert="sample.html :: header"></header>
 
-    <main>
+    <main class="bg-dark bg-gradient d-flex flex-column min-vh-100">
+        <form method="post" th:action="@{/items}" th:object="${itemsSearch}" class="mt-3">
+            <div class="input-group mb-1 w-25 mx-auto shadow-sm">
+                <input th:field="*{searchText}"
+                       type="text"
+                       class="form-control"
+                       placeholder="Введите название предмета"
+                       aria-label="Введите имя героя"
+                       aria-describedby="button-addon2">
+                <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Найти</button>
+            </div>
+        </form>
         <section class="w-100 p-4 table-responsive mx-auto">
-            <table class="table align-middle mb-0 bg-white">
-                <thead class="bg-light">
+            <table class="table align-middle mb-0">
+                <thead>
                     <tr>
-                        <th>Название</th>
-                        <th>Категория</th>
-                        <th>Стоимость</th>
-                        <th>Манакост</th>
-                        <th>Ссылка</th>
+                        <th>
+                            <span class="badge rounded-pill bg-dark text-danger" style="--bs-bg-opacity: .5;">Название</span>
+                        </th>
+                        <th>
+                            <span class="badge rounded-pill bg-dark text-danger" style="--bs-bg-opacity: .5;">Категория</span>
+                        </th>
+                        <th>
+                            <span class="badge rounded-pill bg-dark text-danger" style="--bs-bg-opacity: .5;">Стоимость</span>
+                        </th>
+                        <th>
+                            <span class="badge rounded-pill bg-dark text-danger" style="--bs-bg-opacity: .5;">Манакост</span>
+                        </th>
+                        <th>
+                            <span class="badge rounded-pill bg-dark text-danger" style="--bs-bg-opacity: .5;">Ссылка</span>
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -28,38 +49,38 @@
                         <div class="d-flex align-items-center">
                             <img th:src="'https://cdn.dota2.com/' + ${item.img}" th:alt="${item.dname}" width="50" height="45" class="rounded-circle">
                             <div class="ms-3">
-                                <p class="fw-bold mb-1" th:text="${item.dname}"/>
+                                <p class="fw-bold mb-1 text-white" th:text="${item.dname}"/>
                                 <span th:text="'ID: ' + ${item.id}" class="badge rounded-pill bg-secondary"/>
                             </div>
                         </div>
                     </td>
                     <td>
                         <th:block th:switch="${item.qual}">
-                            <p th:case="'artifact'" th:text="'Артефакт'" class="fw-normal mb-1"/>
-                            <p th:case="'epic'" th:text="'Эпичный'" class="fw-normal mb-1"/>
-                            <p th:case="'component'" th:text="'Компонент'" class="fw-normal mb-1"/>
-                            <p th:case="'rare'" th:text="'Редкий'" class="fw-normal mb-1"/>
-                            <p th:case="'consumable'" th:text="'Расходник'" class="fw-normal mb-1"/>
-                            <p th:case="'common'" th:text="'Общий'" class="fw-normal mb-1"/>
-                            <p th:case="null" th:text="'Нейтральный предмет'" class="fw-normal mb-1"/>
-                            <p th:case="'secret_shop'" th:text="'Из потайной лавки'" class="fw-normal mb-1"/>
+                            <p th:case="'artifact'" th:text="'Артефакт'" class="fw-normal mb-1 text-white"/>
+                            <p th:case="'epic'" th:text="'Эпичный'" class="fw-normal mb-1 text-white"/>
+                            <p th:case="'component'" th:text="'Компонент'" class="fw-normal mb-1 text-white"/>
+                            <p th:case="'rare'" th:text="'Редкий'" class="fw-normal mb-1 text-white"/>
+                            <p th:case="'consumable'" th:text="'Расходник'" class="fw-normal mb-1 text-white"/>
+                            <p th:case="'common'" th:text="'Общий'" class="fw-normal mb-1 text-white"/>
+                            <p th:case="null" th:text="'Нейтральный предмет'" class="fw-normal mb-1 text-white"/>
+                            <p th:case="'secret_shop'" th:text="'Из потайной лавки'" class="fw-normal mb-1 text-white"/>
                         </th:block>
                     </td>
                     <td>
                         <th:block th:switch="${item.cost}">
-                            <span th:case="0" th:text="'-'" class="badge rounded-pill bg-dark mb-1"/>
+                            <span th:case="0" th:text="'-'" class="badge rounded-pill bg-danger mb-1"/>
                             <span th:case="*" th:text="${item.cost}" class="badge rounded-pill text-bg-warning mb-1"/>
                         </th:block>
                     </td>
                     <td>
                         <th:block th:switch="${item.mc}">
-                            <span th:case="-1" th:text="'-'" class="badge rounded-pill bg-dark"/>
+                            <span th:case="-1" th:text="'-'" class="badge rounded-pill bg-danger"/>
                             <span th:case="*" th:text="${item.mc}" class="badge rounded-pill text-bg-info"/>
                         </th:block>
                     </td>
                     <td>
                         <a th:href="'/items/' + ${item.id}">
-                            <button type="button" class="btn btn-primary btn-sm">Подробнее</button>
+                            <button type="button" class="btn btn-outline-danger text-white">Подробнее</button>
                         </a>
                     </td>
                 </tr>

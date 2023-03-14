@@ -9,24 +9,24 @@
 <body class="d-flex flex-column h-100">
   <header th:insert="sample.html :: header"></header>
   
-  <main>
-    <div class="bd-example mx-5">
+  <main class="bg-dark bg-gradient d-flex flex-column min-vh-100">
+    <div class="mt-2 bd-example mx-5">
       <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="/heroes">Герои</a></li>
-          <li class="breadcrumb-item active" aria-current="page" th:text="'Характеристики: ' + ${heroStats.localized_name}">
+          <li class="breadcrumb-item text-danger"><a href="/heroes" class="link-danger">Герои</a></li>
+          <li class="breadcrumb-item active text-white" aria-current="page" th:text="'Характеристики: ' + ${heroStats.localized_name}">
         </ol>
       </nav>
     </div>
     <nav>
       <div class="nav nav-tabs mb-3" id="nav-tab" role="tablist">
-        <a th:href="'/heroes/hero-stats/' + ${heroStats.id}" class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Характеристики</a>
-        <a th:href="'/heroes/hero-matches/' + ${heroStats.id}" class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false" tabindex="-1">Статистика</a>
-        <a th:href="'/heroes/hero-items/' + ${heroStats.id}" class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false" tabindex="-1">Закуп по стадиям</a>
+        <a th:href="'/heroes/hero-stats/' + ${heroStats.id}" class="nav-link active bg-dark text-white" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Характеристики</a>
+        <a th:href="'/heroes/hero-matches/' + ${heroStats.id}" class="nav-link text-white" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false" tabindex="-1">Статистика</a>
+        <a th:href="'/heroes/hero-items/' + ${heroStats.id}" class="nav-link text-white" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false" tabindex="-1">Закуп по стадиям</a>
       </div>
     </nav>
     <div class="d-flex justify-content-left">
-      <div class="shadow-lg h-50 d-inline-block p-3 mb-5 bg-white rounded-end border border-2 border-left-0">
+      <div class="shadow-lg h-50 d-inline-block p-3 mb-5 bg-dark bg-gradient rounded-end border border-secondary border-start-0">
         <th:block th:switch="${heroStats.primary_attr}">
           <th:block th:case="'int'">
         <img th:src="'https://dota2.ru/img/heroes/' +
@@ -39,10 +39,9 @@
                 .replace(' ', '_')
                 .replace('-', '_')}  + '.png'"
              th:alt="${heroStats.localized_name}"
-             class="border border-primary rounded"
-             style="background-color: aliceblue"
+             class="border border-primary rounded bg-dark bg-gradient"
               width="100%">
-            <p class="btn btn-outline-primary w-100 mt-2" th:text="${heroStats.localized_name.toUpperCase()}"/>
+            <p class="btn btn-outline-primary w-100 mt-2 text-white" th:text="${heroStats.localized_name.toUpperCase()}"/>
           </th:block>
           <th:block th:case="'agi'">
             <img th:src="'https://dota2.ru/img/heroes/' +
@@ -55,10 +54,9 @@
                 .replace(' ', '_')
                 .replace('-', '_')}  + '.png'"
                  th:alt="${heroStats.localized_name}"
-                 class="border border-success rounded"
-                 style="background-color: #f2f9f1"
+                 class="border border-success rounded bg-dark bg-gradient"
                  width="100%">
-            <p class="btn btn-outline-success w-100 mt-2" th:text="${heroStats.localized_name.toUpperCase()}"/>
+            <p class="btn btn-outline-success w-100 mt-2 text-white" th:text="${heroStats.localized_name.toUpperCase()}"/>
           </th:block>
           <th:block th:case="'str'">
             <img th:src="'https://dota2.ru/img/heroes/' +
@@ -71,49 +69,60 @@
                 .replace(' ', '_')
                 .replace('-', '_')}  + '.png'"
                  th:alt="${heroStats.localized_name}"
-                 class="border border-danger rounded"
-                 style="background-color: #FFF3F3"
+                 class="border border-danger rounded bg-dark bg-gradient"
                  width="100%">
-            <p class="btn btn-outline-danger w-100 mt-2" th:text="${heroStats.localized_name.toUpperCase()}"/>
+            <p class="btn btn-outline-danger w-100 mt-2 text-white" th:text="${heroStats.localized_name.toUpperCase()}"/>
           </th:block>
           <table class="table table-hover mt-2">
             <tbody>
             <tr>
-              <th scope="row" class="h6">ID</th>
-              <td th:text="${heroStats.id}"/>
+              <th scope="row">
+                <span class="badge rounded-pill bg-dark text-danger">ID</span>
+              </th>
+              <td class="text-white" th:text="${heroStats.id}"/>
             </tr>
             <tr>
-              <th scope="row" class="h6">Тип атаки</th>
+              <th scope="row">
+                <span class="badge rounded-pill bg-dark text-danger">Тип атаки</span>
+              </th>
               <th:block th:if="${heroStats.attack_type.equals('Melee')}">
-                <td th:text="'Ближний бой'"/>
+                <td th:text="'Ближний бой'" class="text-white"/>
               </th:block>
               <th:block th:unless="${heroStats.attack_type.equals('Melee')}">
-                <td th:text="'Дальний бой'"/>
+                <td th:text="'Дальний бой'" class="text-white"/>
               </th:block>
             </tr>
             <th:block th:switch="${heroStats.primary_attr}">
               <th:block th:case="'int'">
                 <tr>
-                  <th scope="row" class="h6">Аттрибут</th>
+                  <th scope="row">
+                    <span class="badge rounded-pill bg-dark text-danger">Аттрибут</span>
+                  </th>
                   <td th:text="'Интеллект'" class="text-primary"/>
                 </tr>
               </th:block>
               <th:block th:case="'agi'">
                 <tr>
-                  <th scope="row" class="h6">Аттрибут</th>
+                  <th scope="row">
+                    <span class="badge rounded-pill bg-dark text-danger">Аттрибут</span>
+                  </th>
                   <td th:text="'Ловкость'" class="text-success"/>
                 </tr>
               </th:block>
               <th:block th:case="'str'">
                 <tr>
-                  <th scope="row" class="h6">Аттрибут</th>
+                  <th scope="row">
+                    <span class="badge rounded-pill bg-dark text-danger">Аттрибут</span>
+                  </th>
                   <td th:text="'Сила'" class="text-danger"/>
                 </tr>
               </th:block>
             </th:block>
             <tr>
-              <th scope="row" class="h6">Роли</th>
-              <td th:text="${heroStats.roles}"/>
+              <th scope="row">
+                <span class="badge rounded-pill bg-dark text-danger">Роли</span>
+              </th>
+              <td th:text="${roles}" class="text-white"/>
             </tr>
             </tbody>
           </table>
@@ -121,59 +130,63 @@
       </div>
       <div class="px-5">
         <table class="table table-hover">
-          <caption>Основные характеристики</caption>
+          <caption class="text-secondary-emphasis">Основные характеристики</caption>
           <thead>
           <tr>
             <th scope="col"></th>
-            <th scope="col">Аттрибут</th>
-            <th scope="col">Значение</th>
+            <th scope="col">
+              <span class="badge rounded-pill bg-dark text-danger" style="--bs-bg-opacity: .5;">Характеристика</span>
+            </th>
+            <th scope="col">
+              <span class="badge rounded-pill bg-dark text-danger" style="--bs-bg-opacity: .5;">Значение</span>
+            </th>
           </tr>
           </thead>
           <tbody>
           <tr>
-            <th scope="row">1</th>
-            <td>Базовое здоровье</td>
-            <td th:text="${heroStats.base_health}"/>
+            <th scope="row" class="text-danger">1</th>
+            <td class="text-white">Базовое здоровье</td>
+            <td th:text="${heroStats.base_health}" class="text-white"/>
           </tr>
           <tr>
-            <th scope="row">2</th>
-            <td>Базовый реген здоровья</td>
-            <td th:text="${heroStats.base_health_regen}"/>
+            <th scope="row" class="text-danger">2</th>
+            <td class="text-white">Базовый реген здоровья</td>
+            <td th:text="${heroStats.base_health_regen}" class="text-white"/>
           </tr>
           <tr>
-            <th scope="row">3</th>
-            <td>Базовая мана</td>
-            <td th:text="${heroStats.base_mana}"/>
+            <th scope="row" class="text-danger">3</th>
+            <td class="text-white">Базовая мана</td>
+            <td th:text="${heroStats.base_mana}" class="text-white"/>
           </tr>
           <tr>
-            <th scope="row">4</th>
-            <td>Базовый реген маны</td>
-            <td th:text="${heroStats.base_mana_regen}"/>
+            <th scope="row" class="text-danger">4</th>
+            <td class="text-white">Базовый реген маны</td>
+            <td th:text="${heroStats.base_mana_regen}" class="text-white"/>
           </tr>
           <tr>
-            <th scope="row">5</th>
-            <td>Базовая броня</td>
-            <td th:text="${heroStats.base_armor}"/>
+            <th scope="row" class="text-danger">5</th>
+            <td class="text-white">Базовая броня</td>
+            <td th:text="${heroStats.base_armor}" class="text-white"/>
           </tr>
           <tr>
-            <th scope="row">6</th>
-            <td>Базовый мин. урон</td>
-            <td th:text="${heroStats.base_attack_min}"/>
+            <th scope="row" class="text-danger">6</th>
+            <td class="text-white">Базовый мин. урон</td>
+            <td th:text="${heroStats.base_attack_min}" class="text-white"/>
           </tr>
           <tr>
-            <th scope="row">7</th>
-            <td>Базовый макс. урон</td>
-            <td th:text="${heroStats.base_attack_max}"/>
+            <th scope="row" class="text-danger">7</th>
+            <td class="text-white">Базовый макс. урон</td>
+            <td th:text="${heroStats.base_attack_max}" class="text-white"/>
           </tr>
           <tr>
-            <th scope="row">8</th>
-            <td>Базовая сила</td>
-            <td th:text="${heroStats.base_str}"/>
+            <th scope="row" class="text-danger">8</th>
+            <td class="text-white">Базовая сила</td>
+            <td th:text="${heroStats.base_str}" class="text-white"/>
           </tr>
           <tr>
-            <th scope="row">9</th>
-            <td>Базовая ловкость</td>
-            <td th:text="${heroStats.base_agi}"/>
+            <th scope="row" class="text-danger">9</th>
+            <td class="text-white">Базовая ловкость</td>
+            <td th:text="${heroStats.base_agi}" class="text-white"/>
           </tr>
           </tbody>
         </table>
@@ -183,63 +196,73 @@
           <thead>
           <tr>
             <th scope="col"></th>
-            <th scope="col">Аттрибут</th>
-            <th scope="col">Значение</th>
+            <th scope="col">
+              <span class="badge rounded-pill bg-dark text-danger" style="--bs-bg-opacity: .5;">Характеристика</span>
+            </th>
+            <th scope="col">
+              <span class="badge rounded-pill bg-dark text-danger" style="--bs-bg-opacity: .5;">Значение</span>
+            </th>
           </tr>
           </thead>
           <tbody>
           <tr>
-            <th scope="row">10</th>
-            <td>Базовый интеллект</td>
-            <td th:text="${heroStats.base_int}"/>
+            <th scope="row" class="text-danger">10</th>
+            <td class="text-white">Базовый интеллект</td>
+            <td class="text-white" th:text="${heroStats.base_int}"/>
           </tr>
           <tr>
-            <th scope="row">11</th>
-            <td>Прирост силы</td>
-            <td th:text="${heroStats.str_gain}"/>
+            <th scope="row" class="text-danger">11</th>
+            <td class="text-white">Прирост силы</td>
+            <td th:text="${heroStats.str_gain}" class="text-white"/>
           </tr>
           <tr>
-            <th scope="row">12</th>
-            <td>Прирост ловкости</td>
-            <td th:text="${heroStats.agi_gain}"/>
+            <th scope="row" class="text-danger">12</th>
+            <td class="text-white">Прирост ловкости</td>
+            <td th:text="${heroStats.agi_gain}" class="text-white"/>
           </tr>
           <tr>
-            <th scope="row">13</th>
-            <td>Прирост интеллекта</td>
-            <td th:text="${heroStats.int_gain}"/>
+            <th scope="row" class="text-danger">13</th>
+            <td class="text-white">Прирост интеллекта</td>
+            <td th:text="${heroStats.int_gain}" class="text-white"/>
           </tr>
           <tr>
-            <th scope="row">14</th>
-            <td>Расстояние атаки</td>
-            <td th:text="${heroStats.attack_range}"/>
+            <th scope="row" class="text-danger">14</th>
+            <td class="text-white">Расстояние атаки</td>
+            <td th:text="${heroStats.attack_range}" class="text-white"/>
           </tr>
           <tr>
-            <th scope="row">15</th>
-            <td>Скорость снарядов</td>
-            <td th:text="${heroStats.projectile_speed}"/>
+            <th scope="row" class="text-danger">15</th>
+            <td class="text-white">Скорость снарядов</td>
+            <td th:text="${heroStats.projectile_speed}" class="text-white"/>
           </tr>
           <tr>
-            <th scope="row">16</th>
-            <td>Скорость атаки</td>
-            <td th:text="${heroStats.attack_rate}"/>
+            <th scope="row" class="text-danger">16</th>
+            <td class="text-white">Скорость атаки</td>
+            <td th:text="${heroStats.attack_rate}" class="text-white"/>
           </tr>
           <tr>
-            <th scope="row">17</th>
-            <td>Скорость передвижения</td>
-            <td th:text="${heroStats.move_speed}"/>
+            <th scope="row" class="text-danger">17</th>
+            <td class="text-white">Скорость передвижения</td>
+            <td th:text="${heroStats.move_speed}" class="text-white"/>
           </tr>
           </tbody>
         </table>
       </div>
       <div class="px-5">
         <table class="table table-hover">
-          <caption>Статистика по рангам (за месяц)</caption>
+          <caption class="text-secondary-emphasis">Статистика по рангам (за месяц)</caption>
           <thead>
           <tr>
             <th scope="col"></th>
-            <th scope="col">Ранг</th>
-            <th scope="col">Кол-во пиков</th>
-            <th scope="col">Победы (%)</th>
+            <th scope="col">
+              <span class="badge rounded-pill bg-dark text-danger" style="--bs-bg-opacity: .5;">Ранг</span>
+            </th>
+            <th scope="col">
+              <span class="badge rounded-pill bg-dark text-danger" style="--bs-bg-opacity: .5;">Кол-во пиков</span>
+            </th>
+            <th scope="col">
+              <span class="badge rounded-pill bg-dark text-danger" style="--bs-bg-opacity: .5;">Победы (%)</span>
+            </th>
           </tr>
           </thead>
           <tbody>
@@ -247,65 +270,65 @@
             <th scope="row">
               <img src="../../static/images/herald.png" width="35" height="35" th:src="@{/images/herald.png}">
             </th>
-            <td>Рекрут</td>
-            <td th:text="${heroStats.first_pick}"/>
-            <td th:text="${winRates.get(0)}"/>
+            <td class="text-danger">Рекрут</td>
+            <td class="text-white" th:text="${heroStats.first_pick}"/>
+            <td class="text-white" th:text="${winRates.get(0)}"/>
           </tr>
           <tr>
             <th scope="row">
               <img src="../../static/images/guardian.png" width="35" height="35" th:src="@{/images/guardian.png}">
             </th>
-            <td>Страж</td>
-            <td th:text="${heroStats.second_pick}"/>
-            <td th:text="${winRates.get(1)}"/>
+            <td class="text-danger">Страж</td>
+            <td class="text-white" th:text="${heroStats.second_pick}"/>
+            <td class="text-white" th:text="${winRates.get(1)}"/>
           </tr>
           <tr>
             <th scope="row">
               <img src="../../static/images/crusader.png" width="35" height="35" th:src="@{/images/crusader.png}">
             </th>
-            <td>Рыцарь</td>
-            <td th:text="${heroStats.third_pick}"/>
-            <td th:text="${winRates.get(2)}"/>
+            <td class="text-danger">Рыцарь</td>
+            <td class="text-white" th:text="${heroStats.third_pick}"/>
+            <td class="text-white" th:text="${winRates.get(2)}"/>
           </tr>
           <tr>
             <th scope="row">
               <img src="../../static/images/archon.png" width="35" height="35" th:src="@{/images/archon.png}">
             </th>
-            <td>Герой</td>
-            <td th:text="${heroStats.fourth_pick}"/>
-            <td th:text="${winRates.get(3)}"/>
+            <td class="text-danger">Герой</td>
+            <td class="text-white" th:text="${heroStats.fourth_pick}"/>
+            <td class="text-white" th:text="${winRates.get(3)}"/>
           </tr>
           <tr>
             <th scope="row">
               <img src="../../static/images/legend.png" width="35" height="35" th:src="@{/images/legend.png}">
             </th>
-            <td>Легенда</td>
-            <td th:text="${heroStats.fifth_pick}"/>
-            <td th:text="${winRates.get(4)}"/>
+            <td class="text-danger">Легенда</td>
+            <td class="text-white" th:text="${heroStats.fifth_pick}"/>
+            <td class="text-white" th:text="${winRates.get(4)}"/>
           </tr>
           <tr>
             <th scope="row">
               <img src="../../static/images/ancient.png" width="35" height="35" th:src="@{/images/ancient.png}">
             </th>
-            <td>Властелин</td>
-            <td th:text="${heroStats.sixth_pick}"/>
-            <td th:text="${winRates.get(5)}"/>
+            <td class="text-danger">Властелин</td>
+            <td class="text-white" th:text="${heroStats.sixth_pick}"/>
+            <td class="text-white" th:text="${winRates.get(5)}"/>
           </tr>
           <tr>
             <th scope="row">
               <img src="../../static/images/divine.png" width="35" height="35" th:src="@{/images/divine.png}">
             </th>
-            <td>Божество</td>
-            <td th:text="${heroStats.seventh_pick}"/>
-            <td th:text="${winRates.get(6)}"/>
+            <td class="text-danger">Божество</td>
+            <td class="text-white" th:text="${heroStats.seventh_pick}"/>
+            <td class="text-white" th:text="${winRates.get(6)}"/>
           </tr>
           <tr>
             <th scope="row">
               <img src="../../static/images/immortal.png" width="35" height="35" th:src="@{/images/immortal.png}">
             </th>
-            <td>Титан (+)</td>
-            <td th:text="${heroStats.eighth_pick}"/>
-            <td th:text="${winRates.get(7)}"/>
+            <td class="text-danger">Титан (+)</td>
+            <td class="text-white" th:text="${heroStats.eighth_pick}"/>
+            <td class="text-white" th:text="${winRates.get(7)}"/>
           </tr>
           </tbody>
         </table>

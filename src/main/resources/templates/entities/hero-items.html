@@ -9,31 +9,37 @@
 <body class="d-flex flex-column min-vh-100">
   <header th:insert="sample.html :: header"></header>
 
-  <main>
-    <div class="bd-example mx-5">
+  <main class="bg-dark bg-gradient d-flex flex-column min-vh-100">
+    <div class="mt-2 bd-example mx-5">
       <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="/heroes">Герои</a></li>
-          <li class="breadcrumb-item active" aria-current="page" th:text="'Закуп по стадиям: ' + ${heroName}">
+          <li class="breadcrumb-item"><a href="/heroes" class="link-danger">Герои</a></li>
+          <li class="breadcrumb-item active text-white" aria-current="page" th:text="'Закуп по стадиям: ' + ${heroName}">
         </ol>
       </nav>
     </div>
     <nav>
       <div class="nav nav-tabs mb-3" id="nav-tab" role="tablist">
-        <a th:href="'/heroes/hero-stats/' + ${id}" class="nav-link" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Характеристики</a>
-        <a th:href="'/heroes/hero-matches/' + ${id}" class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false" tabindex="-1">Статистика</a>
-        <a th:href="'/heroes/hero-items/' + ${id}" class="nav-link active" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false" tabindex="-1">Закуп по стадиям</a>
+        <a th:href="'/heroes/hero-stats/' + ${id}" class="nav-link text-white" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Характеристики</a>
+        <a th:href="'/heroes/hero-matches/' + ${id}" class="nav-link text-white" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false" tabindex="-1">Статистика</a>
+        <a th:href="'/heroes/hero-items/' + ${id}" class="nav-link active bg-dark text-white" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false" tabindex="-1">Закуп по стадиям</a>
       </div>
     </nav>
     <div class="d-flex justify-content-left row">
       <div class="px-5 col-sm">
         <table class="table table-hover">
-          <caption th:text="'Популярные предметы в стартовой стадии (за месяц)'"/>
+          <caption th:text="'Популярные предметы в стартовой стадии (за месяц)'" class="text-secondary-emphasis"/>
           <thead>
           <tr>
-            <th scope="col">Иконка</th>
-            <th scope="col">Название предмета</th>
-            <th scope="col">Среднее кол-во покупок</th>
+            <th scope="col">
+              <span class="badge rounded-pill bg-dark text-danger" style="--bs-bg-opacity: .5;">Иконка</span>
+            </th>
+            <th scope="col">
+              <span class="badge rounded-pill bg-dark text-danger" style="--bs-bg-opacity: .5;">Название предмета</span>
+            </th>
+            <th scope="col">
+              <span class="badge rounded-pill bg-dark text-danger" style="--bs-bg-opacity: .5;">Среднее количество покупок</span>
+            </th>
           </tr>
           </thead>
           <tbody>
@@ -44,10 +50,16 @@
               </th>
               <td scope="row">
                 <a th:href="'/items/' + ${pair.key}"
-                   th:text="${itemsRepository.findItemsById(pair.key).getDname()}"
-                   class="link-dark"/>
+                   class="link-white">
+                  <h5>
+                    <span th:text="${itemsRepository.findItemsById(pair.key).getDname()}"
+                          class="badge rounded-pill bg-dark text-white"
+                          style="--bs-bg-opacity: .25;"
+                    />
+                  </h5>
+                </a>
               </td>
-              <td th:text="${pair.value}"/>
+              <td th:text="${pair.value}" class="text-white"/>
             </tr>
           </th:block>
           </tbody>
@@ -56,12 +68,18 @@
 
       <div class="px-5 col-sm">
         <table class="table table-hover">
-          <caption th:text="'Популярные предметы на ранней стадии (за месяц)'"/>
+          <caption th:text="'Популярные предметы на ранней стадии (за месяц)'" class="text-secondary-emphasis"/>
           <thead>
           <tr>
-            <th scope="col">Иконка</th>
-            <th scope="col">Название предмета</th>
-            <th scope="col">Среднее кол-во покупок</th>
+            <th scope="col">
+              <span class="badge rounded-pill bg-dark text-danger" style="--bs-bg-opacity: .5;">Иконка</span>
+            </th>
+            <th scope="col">
+              <span class="badge rounded-pill bg-dark text-danger" style="--bs-bg-opacity: .5;">Название предмета</span>
+            </th>
+            <th scope="col">
+              <span class="badge rounded-pill bg-dark text-danger" style="--bs-bg-opacity: .5;">Среднее количество покупок</span>
+            </th>
           </tr>
           </thead>
           <tbody>
@@ -72,10 +90,16 @@
               </th>
               <td scope="row">
                 <a th:href="'/items/' + ${pair.key}"
-                   th:text="${itemsRepository.findItemsById(pair.key).getDname()}"
-                   class="link-dark"/>
+                   class="link-white">
+                  <h5>
+                    <span th:text="${itemsRepository.findItemsById(pair.key).getDname()}"
+                          class="badge rounded-pill bg-dark text-white"
+                          style="--bs-bg-opacity: .25;"
+                    />
+                  </h5>
+                </a>
               </td>
-              <td th:text="${pair.value}"/>
+              <td th:text="${pair.value}" class="text-white"/>
             </tr>
           </th:block>
           </tbody>
@@ -86,12 +110,18 @@
     <div class="d-flex justify-content-left row">
       <div class="px-5 col-sm">
         <table class="table table-hover">
-          <caption th:text="'Популярные предметы на средней стадии (за месяц)'"/>
+          <caption th:text="'Популярные предметы на средней стадии (за месяц)'" class="text-secondary-emphasis"/>
           <thead>
           <tr>
-            <th scope="col">Иконка</th>
-            <th scope="col">Название предмета</th>
-            <th scope="col">Среднее кол-во покупок</th>
+            <th scope="col">
+              <span class="badge rounded-pill bg-dark text-danger" style="--bs-bg-opacity: .5;">Иконка</span>
+            </th>
+            <th scope="col">
+              <span class="badge rounded-pill bg-dark text-danger" style="--bs-bg-opacity: .5;">Название предмета</span>
+            </th>
+            <th scope="col">
+              <span class="badge rounded-pill bg-dark text-danger" style="--bs-bg-opacity: .5;">Среднее количество покупок</span>
+            </th>
           </tr>
           </thead>
           <tbody>
@@ -102,10 +132,16 @@
               </th>
               <td scope="row">
                 <a th:href="'/items/' + ${pair.key}"
-                   th:text="${itemsRepository.findItemsById(pair.key).getDname()}"
-                   class="link-dark"/>
+                   class="link-white">
+                  <h5>
+                    <span th:text="${itemsRepository.findItemsById(pair.key).getDname()}"
+                          class="badge rounded-pill bg-dark text-white"
+                          style="--bs-bg-opacity: .25;"
+                    />
+                  </h5>
+                </a>
               </td>
-              <td th:text="${pair.value}"/>
+              <td th:text="${pair.value}" class="text-white"/>
             </tr>
           </th:block>
           </tbody>
@@ -114,12 +150,18 @@
 
       <div class="px-5 col-sm">
         <table class="table table-hover">
-          <caption th:text="'Популярные предметы на поздней стадии (за месяц)'"/>
+          <caption th:text="'Популярные предметы на поздней стадии (за месяц)'" class="text-secondary-emphasis"/>
           <thead>
           <tr>
-            <th scope="col">Иконка</th>
-            <th scope="col">Название предмета</th>
-            <th scope="col">Среднее кол-во покупок</th>
+            <th scope="col">
+              <span class="badge rounded-pill bg-dark text-danger" style="--bs-bg-opacity: .5;">Иконка</span>
+            </th>
+            <th scope="col">
+              <span class="badge rounded-pill bg-dark text-danger" style="--bs-bg-opacity: .5;">Название предмета</span>
+            </th>
+            <th scope="col">
+              <span class="badge rounded-pill bg-dark text-danger" style="--bs-bg-opacity: .5;">Среднее количество покупок</span>
+            </th>
           </tr>
           </thead>
           <tbody>
@@ -130,10 +172,16 @@
               </th>
               <td scope="row">
                 <a th:href="'/items/' + ${pair.key}"
-                   th:text="${itemsRepository.findItemsById(pair.key).getDname()}"
-                   class="link-dark"/>
+                   class="link-white">
+                  <h5>
+                    <span th:text="${itemsRepository.findItemsById(pair.key).getDname()}"
+                          class="badge rounded-pill bg-dark text-white"
+                          style="--bs-bg-opacity: .25;"
+                    />
+                  </h5>
+                </a>
               </td>
-              <td th:text="${pair.value}"/>
+              <td th:text="${pair.value}" class="text-white"/>
             </tr>
           </th:block>
           </tbody>

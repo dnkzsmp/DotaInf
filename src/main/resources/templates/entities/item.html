@@ -9,36 +9,44 @@
 <body>
   <header th:insert="sample.html :: header"></header>
 
-  <main>
-    <div class="bd-example mx-5">
+  <main class="bg-dark bg-gradient d-flex flex-column min-vh-100">
+    <div class="mt-2 bd-example mx-5">
       <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="/items">Предметы</a></li>
-          <li class="breadcrumb-item active" aria-current="page" th:text="${item.dname}">
+          <li class="breadcrumb-item"><a href="/items" class="link-danger">Предметы</a></li>
+          <li class="breadcrumb-item active text-white" aria-current="page" th:text="${item.dname}">
         </ol>
       </nav>
     </div>
 
-    <div class="d-flex justify-content-left mx-5 border border-start-0 rounded mb-3">
-      <div class="card shadow-lg h-50" style="width: 18rem;">
+    <div class="d-flex justify-content-left mx-5 bg-dark bg-gradient rounded-end border border-secondary mb-3">
+      <div class="card bg-dark shadow-lg h-50" style="width: 18rem;">
         <img th:src="'https://cdn.dota2.com/' + ${item.img}" width="80" height="80" class="rounded mx-auto mt-2 d-block">
         <div class="card-body">
-          <h5 th:text="${item.dname}" class="card-title text-center"/>
+          <h5 th:text="${item.dname}" class="card-title text-center text-white"/>
           <th:block th:switch="${item.lore}">
-            <p th:case="'Отсутствуют'" th:text="'Лор отсутствует у данного предмета'" class="card-text"/>
-            <p th:case="*" th:text="${item.lore}" class="card-text"/>
+            <p th:case="'Отсутствуют'" th:text="'Лор отсутствует у данного предмета'" class="card-text text-white"/>
+            <p th:case="*" th:text="${item.lore}" class="card-text text-white"/>
           </th:block>
         </div>
         <table class="table table-hover mt-2 mx-auto">
           <tbody>
             <tr>
-              <th scope="row" class="h6">ID</th>
+              <th scope="row">
+                <h6>
+                  <span class="badge rounded-pill bg-danger text-dark">ID</span>
+                </h6>
+              </th>
               <td>
-                <span th:text="${item.id}" class="badge rounded-pill bg-secondary"/>
+                <span th:text="${item.id}" class="badge rounded-pill bg-white text-dark"/>
               </td>
             </tr>
             <tr>
-              <th scope="row" class="h6">Стоимость</th>
+              <th scope="row">
+                <h6>
+                  <span class="badge rounded-pill bg-danger text-dark">Стоимость</span>
+                </h6>
+              </th>
               <td>
                 <th:block th:switch="${item.cost}">
                   <span th:case="0" th:text="'-'" class="badge rounded-pill bg-dark mb-1"/>
@@ -48,17 +56,21 @@
               </td>
             </tr>
             <tr>
-              <th scope="row" class="h6">Категория</th>
+              <th scope="row">
+                <h6>
+                  <span class="badge rounded-pill bg-danger text-dark">Категория</span>
+                </h6>
+              </th>
               <td>
                 <th:block th:switch="${item.qual}">
-                  <p th:case="'artifact'" th:text="'Артефакт'" class="fw-normal mb-1"/>
-                  <p th:case="'epic'" th:text="'Эпичный'" class="fw-normal mb-1"/>
-                  <p th:case="'component'" th:text="'Компонент'" class="fw-normal mb-1"/>
-                  <p th:case="'rare'" th:text="'Редкий'" class="fw-normal mb-1"/>
-                  <p th:case="'consumable'" th:text="'Расходник'" class="fw-normal mb-1"/>
-                  <p th:case="'common'" th:text="'Общий'" class="fw-normal mb-1"/>
-                  <p th:case="null" th:text="'Нейтральный предмет'" class="fw-normal mb-1"/>
-                  <p th:case="'secret_shop'" th:text="'Из потайной лавки'" class="fw-normal mb-1"/>
+                  <p th:case="'artifact'" th:text="'Артефакт'" class="fw-normal mb-1 text-white"/>
+                  <p th:case="'epic'" th:text="'Эпичный'" class="fw-normal mb-1 text-white"/>
+                  <p th:case="'component'" th:text="'Компонент'" class="fw-normal mb-1 text-white"/>
+                  <p th:case="'rare'" th:text="'Редкий'" class="fw-normal mb-1 text-white"/>
+                  <p th:case="'consumable'" th:text="'Расходник'" class="fw-normal mb-1 text-white"/>
+                  <p th:case="'common'" th:text="'Общий'" class="fw-normal mb-1 text-white"/>
+                  <p th:case="null" th:text="'Нейтральный предмет'" class="fw-normal mb-1 text-white"/>
+                  <p th:case="'secret_shop'" th:text="'Из потайной лавки'" class="fw-normal mb-1 text-white"/>
                 </th:block>
               </td>
             </tr>
@@ -72,11 +84,15 @@
                               !item.getDname().equals('Blink Dagger') &&
                               !item.getDname().endsWith('Recipe')}">
           <table class="table table-hover mt-2">
-            <caption>Компоненты для крафта предмета</caption>
+            <caption class="text-secondary-emphasis">Компоненты для крафта предмета</caption>
             <thead>
             <tr>
-              <th scope="col">Предмет</th>
-              <th scope="col">Стоимость</th>
+              <th scope="col">
+                <span class="badge rounded-pill bg-dark text-danger" style="--bs-bg-opacity: .5;">Предмет</span>
+              </th>
+              <th scope="col">
+                <span class="badge rounded-pill bg-dark text-danger" style="--bs-bg-opacity: .5;">Стоимость</span>
+              </th>
             </tr>
             </thead>
             <tbody>
@@ -91,8 +107,8 @@
                            class="rounded-circle">
                       </a>
                       <div class="ms-3">
-                        <p class="fw-bold mb-1" th:text="${itemsRepo.findItemsByNodeName(cmp.name).dname}"/>
-                        <span th:text="'ID: ' + ${itemsRepo.findItemsByNodeName(cmp.name).id}" class="badge rounded-pill bg-secondary"/>
+                        <p class="fw-bold mb-1 text-white" th:text="${itemsRepo.findItemsByNodeName(cmp.name).dname}"/>
+                        <span th:text="'ID: ' + ${itemsRepo.findItemsByNodeName(cmp.name).id}" class="badge rounded-pill bg-white text-dark"/>
                       </div>
                     </div>
                   </td>
@@ -113,16 +129,20 @@
                               !item.getDname().equals('Blink Dagger') &&
                               !item.getDname().endsWith('Recipe')}">
           <table class="table table-hover mt-2">
-            <caption>Компоненты для крафта предмета</caption>
+            <caption class="text-secondary-emphasis">Компоненты для крафта предмета</caption>
             <thead>
             <tr>
-              <th scope="col">Предмет</th>
-              <th scope="col">Стоимость</th>
+              <th scope="col">
+                <span class="badge rounded-pill bg-dark text-danger" style="--bs-bg-opacity: .5;">Предмет</span>
+              </th>
+              <th scope="col">
+                <span class="badge rounded-pill bg-dark text-danger" style="--bs-bg-opacity: .5;">Стоимость</span>
+              </th>
             </tr>
             </thead>
             <tbody>
               <tr>
-                <td colspan="2" class="bg-danger text-white">Данный предмет нельзя скрафтить</td>
+                <td colspan="2" class="bg-dark text-danger">Данный предмет нельзя скрафтить</td>
               </tr>
             </tbody>
           </table>
@@ -132,16 +152,18 @@
       <div class="px-5">
         <th:block th:if="${!attr.isEmpty() && attr != null}">
           <table class="table table-hover mt-2">
-            <caption>Аттрибуты предмета</caption>
+            <caption class="text-secondary-emphasis">Аттрибуты предмета</caption>
             <thead>
             <tr>
-              <th scope="col">Аттрибут</th>
+              <th scope="col">
+                <span class="badge rounded-pill bg-dark text-danger" style="--bs-bg-opacity: .5;">Аттрибут</span>
+              </th>
             </tr>
             </thead>
             <tbody>
               <th:block th:each="at: ${attr}">
                 <tr>
-                  <td th:text="${at.getHeader() + ' ' + at.getValue() + ' ' + at.getFooter()}"/>
+                  <td th:text="${at.getHeader() + ' ' + at.getValue() + ' ' + at.getFooter()}" class="text-white"/>
                 </tr>
               </th:block>
             </tbody>
@@ -149,15 +171,17 @@
         </th:block>
         <th:block th:unless="${!attr.isEmpty() && attr != null}">
           <table class="table table-hover mt-2">
-            <caption>Аттрибуты предмета</caption>
+            <caption class="text-secondary-emphasis">Аттрибуты предмета</caption>
             <thead>
             <tr>
-              <th scope="col">Аттрибут</th>
+              <th scope="col">
+                <span class="badge rounded-pill bg-dark text-danger" style="--bs-bg-opacity: .5;">Аттрибут</span>
+              </th>
             </tr>
             </thead>
             <tbody>
               <tr>
-                <td th:text="'У данного предмета отсутсвуют аттрибуты'" class="bg-danger text-white"/>
+                <td th:text="'У данного предмета отсутсвуют аттрибуты'" class="bg-dark text-danger"/>
               </tr>
             </tbody>
           </table>
@@ -166,16 +190,20 @@
 
       <div class="px-5">
         <table class="table table-hover mt-2">
-          <caption>Хар-ки предмета</caption>
+          <caption class="text-secondary-emphasis">Хар-ки предмета</caption>
           <thead>
             <tr>
-              <th scope="col">Название</th>
-              <th scope="col">Значение</th>
+              <th scope="col">
+                <span class="badge rounded-pill bg-dark text-danger" style="--bs-bg-opacity: .5;">Название</span>
+              </th>
+              <th scope="col">
+                <span class="badge rounded-pill bg-dark text-danger" style="--bs-bg-opacity: .5;">Значение</span>
+              </th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td scope="row">Перезарядка</td>
+              <td scope="row" class="text-white">Перезарядка</td>
               <td>
               <th:block th:switch="${item.cd}">
                   <span th:case="-1" th:text="'-'" class="badge rounded-pill bg-danger"/>
@@ -184,7 +212,7 @@
               </td>
             </tr>
             <tr>
-              <td scope="row">Крафтовый</td>
+              <td scope="row" class="text-white">Крафтовый</td>
               <td>
               <th:block th:switch="${item.created}">
                   <span th:case="-1" th:text="'-'" class="badge rounded-pill bg-danger"/>
@@ -193,7 +221,7 @@
               </td>
             </tr>
             <tr>
-              <td scope="row">Кол-во зарядов</td>
+              <td scope="row" class="text-white">Кол-во зарядов</td>
               <td>
                 <th:block th:switch="${item.charges}">
                   <span th:case="0" th:text="'-'" class="badge rounded-pill bg-danger"/>
@@ -202,7 +230,7 @@
               </td>
             </tr>
             <tr>
-              <td scope="row">Манакост</td>
+              <td scope="row" class="text-white">Манакост</td>
               <td>
                 <th:block th:switch="${item.mc}">
                   <span th:case="-1" th:text="'-'" class="badge rounded-pill bg-danger"/>
@@ -214,17 +242,17 @@
         </table>
       </div>
     </div>
-
-    <div class="d-flex justify-content-left">
-      <div class="px-5">
+    <div class="px-5">
         <th:block th:if="${item.hint != null && !item.hint.isEmpty()}">
-          <div class="alert alert-primary alert-dismissible fade show w-50" th:text="${item.hint}"/>
+          <div class="alert alert-primary w-50" role="alert"
+               style="background-color: #020C41; color: #00C5FF" th:text="${item.hint}"/>
         </th:block>
         <th:block th:unless="${item.hint != null && !item.hint.isEmpty()}">
-          <div class="alert alert-primary alert-dismissible fade show w-75" th:text="'Способности у предмета отсутствуют'"/>
+          <div class="alert alert-primary w-75" role="alert"
+               style="background-color: #020C41; color: #00C5FF" th:text="'Способности у предмета отсутствуют'"/>
         </th:block>
-      </div>
     </div>
+
   </main>
 
   <footer th:insert="sample.html :: footer"></footer>

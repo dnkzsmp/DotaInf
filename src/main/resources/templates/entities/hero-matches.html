@@ -9,55 +9,78 @@
 <body class="d-flex flex-column h-100">
     <header th:insert="sample.html :: header"></header>
 
-    <main>
-        <div class="bd-example mx-5">
+    <main class="bg-dark bg-gradient d-flex flex-column min-vh-100">
+        <div class="mt-2 bd-example mx-5">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="/heroes">Герои</a></li>
-                    <li class="breadcrumb-item active" aria-current="page" th:text="'Статистика: ' + ${heroName}">
+                    <li class="breadcrumb-item"><a href="/heroes" class="link-danger">Герои</a></li>
+                    <li class="breadcrumb-item active text-white" aria-current="page" th:text="'Статистика: ' + ${heroName}">
                 </ol>
             </nav>
         </div>
         <nav>
             <div class="nav nav-tabs mb-3" id="nav-tab" role="tablist">
-                <a th:href="'/heroes/hero-stats/' + ${heroId}" class="nav-link" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Характеристики</a>
-                <a th:href="'/heroes/hero-matches/' + ${heroId}" class="nav-link active" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false" tabindex="-1">Статистика</a>
-                <a th:href="'/heroes/hero-items/' + ${heroId}" class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false" tabindex="-1">Закуп по стадиям</a>
+                <a th:href="'/heroes/hero-stats/' + ${heroId}" class="nav-link text-white" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Характеристики</a>
+                <a th:href="'/heroes/hero-matches/' + ${heroId}" class="nav-link active bg-dark text-white" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false" tabindex="-1">Статистика</a>
+                <a th:href="'/heroes/hero-items/' + ${heroId}" class="nav-link text-white" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false" tabindex="-1">Закуп по стадиям</a>
             </div>
         </nav>
 
         <div class="px-5">
             <table class="table table-hover">
-                <caption th:text="'Последние 20 игр за ' + ${heroName} + ' в лигах'"/>
+                <caption th:text="'Последние 20 игр за ' + ${heroName} + ' в лигах'" class="text-secondary-emphasis"/>
                 <thead>
                 <tr>
-                    <th scope="col">Название лиги</th>
-                    <th scope="col">ID матча</th>
-                    <th scope="col">Длительность</th>
-                    <th scope="col">Сторона</th>
-                    <th scope="col">Победа</th>
-                    <th scope="col">Убийств</th>
-                    <th scope="col">Смертей</th>
-                    <th scope="col">Ассистов</th>
+                    <th scope="col">
+                        <span class="badge rounded-pill bg-dark text-danger" style="--bs-bg-opacity: .5;">Название лиги</span>
+                    </th>
+                    <th scope="col">
+                        <span class="badge rounded-pill bg-dark text-danger" style="--bs-bg-opacity: .5;">ID матча</span>
+                    </th>
+                    <th scope="col">
+                        <span class="badge rounded-pill bg-dark text-danger" style="--bs-bg-opacity: .5;">Длительность</span>
+                    </th>
+                    <th scope="col">
+                        <span class="badge rounded-pill bg-dark text-danger" style="--bs-bg-opacity: .5;">Сторона</span>
+                    </th>
+                    <th scope="col">
+                        <span class="badge rounded-pill bg-dark text-danger" style="--bs-bg-opacity: .5;">Победа</span>
+                    </th>
+                    <th scope="col">
+                        <span class="badge rounded-pill bg-dark text-danger" style="--bs-bg-opacity: .5;">Убийств</span>
+                    </th>
+                    <th scope="col">
+                        <span class="badge rounded-pill bg-dark text-danger" style="--bs-bg-opacity: .5;">Смертей</span>
+                    </th>
+                    <th scope="col">
+                        <span class="badge rounded-pill bg-dark text-danger" style="--bs-bg-opacity: .5;">Ассистов</span>
+                    </th>
                 </tr>
                 </thead>
                 <tbody>
                     <th:block th:each="heroMatch: ${heroMatches}">
                         <tr>
-                            <td scope="row" th:text="${heroMatch.league_name}"/>
-                            <td th:text="${heroMatch.match_id}"/>
+                            <td scope="row">
+                                <h5>
+                                    <span th:text="${heroMatch.league_name}"
+                                          class="badge rounded-pill bg-dark text-white"
+                                          style="--bs-bg-opacity: .25;"
+                                    />
+                                </h5>
+                            </td>
+                            <td th:text="${heroMatch.match_id}" class="text-white"/>
                             <td th:text="${heroMatch.duration
                                         .toString()
                                         .substring(0, heroMatch.duration.toString().length() / 2)} + ':' +
                                         ${heroMatch.duration
                                         .toString()
                                         .substring(heroMatch.duration.toString().length() / 2, heroMatch.duration.toString().length())}"
-                            />
-                            <td th:text="${heroMatch.radiant} ? 'Свет' : 'Тьма'"/>
-                            <td th:text="${heroMatch.radiant_win} ? 'Свет' : 'Тьма'"/>
-                            <td th:text="${heroMatch.kills}"/>
-                            <td th:text="${heroMatch.deaths}"/>
-                            <td th:text="${heroMatch.assists}"/>
+                            class="text-white"/>
+                            <td th:text="${heroMatch.radiant} ? 'Свет' : 'Тьма'" class="text-white"/>
+                            <td th:text="${heroMatch.radiant_win} ? 'Свет' : 'Тьма'" class="text-white"/>
+                            <td th:text="${heroMatch.kills}" class="text-white"/>
+                            <td th:text="${heroMatch.deaths}" class="text-white"/>
+                            <td th:text="${heroMatch.assists}" class="text-white"/>
                         </tr>
                     </th:block>
                 </tbody>
@@ -66,12 +89,21 @@
         <br>
         <div class="px-5">
             <table class="table table-hover">
-                <caption th:text="'Статистика матчей за ' + ${heroName} + ' против других героев (за сегодня)'"/>
+                <caption
+                        th:text="'Статистика матчей за ' + ${heroName} + ' против других героев (за сегодня)'"
+                        class="text-secondary-emphasis"
+                />
                 <thead>
                 <tr>
-                    <th scope="col">Герой</th>
-                    <th scope="col">Кол-во игр</th>
-                    <th scope="col">Победы</th>
+                    <th scope="col">
+                        <span class="badge rounded-pill bg-dark text-danger" style="--bs-bg-opacity: .5;">Герой</span>
+                    </th>
+                    <th scope="col">
+                        <span class="badge rounded-pill bg-dark text-danger" style="--bs-bg-opacity: .5;">Количество игр</span>
+                    </th>
+                    <th scope="col">
+                        <span class="badge rounded-pill bg-dark text-danger" style="--bs-bg-opacity: .5;">Количество побед</span>
+                    </th>
                 </tr>
                 </thead>
                 <tbody>
@@ -80,31 +112,40 @@
                             <th:block th:switch="${heroes.findHeroById(heroMatchup.hero_id).heroAttribute}">
                                 <th:block th:case="'Сила'">
                                     <td scope="row">
-                                        <a th:href="'/heroes/hero-stats/' + ${heroMatchup.hero_id}"
-                                           th:text="${heroes.findHeroById(heroMatchup.hero_id).heroName}"
-                                           class="link-danger">
+                                        <a th:href="'/heroes/hero-stats/' + ${heroMatchup.hero_id}">
+                                            <h5>
+                                                <span th:text="${heroes.findHeroById(heroMatchup.hero_id).heroName}"
+                                                      class="badge rounded-pill bg-dark text-danger"
+                                                      style="--bs-bg-opacity: .25;"/>
+                                            </h5>
                                         </a>
                                     </td>
                                 </th:block>
                                 <th:block th:case="'Ловкость'">
                                     <td scope="row">
-                                        <a th:href="'/heroes/hero-stats/' + ${heroMatchup.hero_id}"
-                                           th:text="${heroes.findHeroById(heroMatchup.hero_id).heroName}"
-                                           class="link-success">
+                                        <a th:href="'/heroes/hero-stats/' + ${heroMatchup.hero_id}">
+                                            <h5>
+                                                <span th:text="${heroes.findHeroById(heroMatchup.hero_id).heroName}"
+                                                      class="badge rounded-pill bg-dark text-success"
+                                                      style="--bs-bg-opacity: .25;"/>
+                                            </h5>
                                         </a>
                                     </td>
                                 </th:block>
                                 <th:block th:case="'Интеллект'">
                                     <td scope="row">
-                                        <a th:href="'/heroes/hero-stats/' + ${heroMatchup.hero_id}"
-                                           th:text="${heroes.findHeroById(heroMatchup.hero_id).heroName}"
-                                           class="link-primary">
+                                        <a th:href="'/heroes/hero-stats/' + ${heroMatchup.hero_id}">
+                                            <h5>
+                                                <span th:text="${heroes.findHeroById(heroMatchup.hero_id).heroName}"
+                                                      class="badge rounded-pill bg-dark text-primary"
+                                                      style="--bs-bg-opacity: .25;"/>
+                                            </h5>
                                         </a>
                                     </td>
                                 </th:block>
                             </th:block>
-                            <td th:text="${heroMatchup.games_played}"/>
-                            <td th:text="${heroMatchup.wins}"/>
+                            <td th:text="${heroMatchup.games_played}" class="text-white"/>
+                            <td th:text="${heroMatchup.wins}" class="text-white"/>
                         </tr>
                     </th:block>
                 </tbody>

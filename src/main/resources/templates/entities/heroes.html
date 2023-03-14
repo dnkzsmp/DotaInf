@@ -9,10 +9,15 @@
 <body class="d-flex flex-column min-vh-100">
     <header th:insert="sample.html :: header"></header>
 
-    <div class="album py-5 bg-light bg-gradient">
+    <div class="album py-5 bg-dark bg-gradient d-flex flex-column min-vh-100">
         <form method="post" th:action="@{/heroes}" th:object="${heroesSearch}">
             <div class="input-group mb-3 w-25 mx-auto shadow-sm">
-                <input th:field="*{searchText}" type="text" class="form-control" placeholder="Введите имя героя" aria-label="Введите имя героя" aria-describedby="button-addon2">
+                <input th:field="*{searchText}"
+                       type="text"
+                       class="form-control"
+                       placeholder="Введите имя героя"
+                       aria-label="Введите имя героя"
+                       aria-describedby="button-addon2">
                 <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Найти</button>
             </div>
         </form>
@@ -21,10 +26,10 @@
             <div class="row d-flex justify-content-center">
                 <th:block th:each="hero: ${heroes}">
                     <th:block th:if="${heroes.indexOf(hero)} % 3 != 0">
-                        <div class="card col-sm-3 mx-2 shadow-sm">
+                        <div class="card border-danger col-sm-3 mx-2 shadow-sm bg-dark">
                             <div class="card-body">
                                 <div class="d-flex flex-row">
-                                    <h5 class="card-title" th:text="${hero.heroName}"/>
+                                    <h5 class="card-title text-white" th:text="${hero.heroName}"/>
                                     <th:block th:switch="${hero.heroAttribute}">
                                         <th:block th:case="'Сила'">
                                             <img src="../../static/images/str.png" th:src="@{/images/str.png}" width="35" height="35" class="position-absolute top-0 end-0 mt-2 mx-3">
@@ -40,11 +45,15 @@
                                 <table class="table table-hover">
                                     <tbody>
                                     <tr>
-                                        <th scope="row" class="h6">ID</th>
-                                        <td th:text="${hero.id}"/>
+                                        <th scope="row">
+                                            <span class="badge rounded-pill bg-danger text-black">ID</span>
+                                        </th>
+                                        <td th:text="${hero.id}" class="text-white"/>
                                     </tr>
                                     <tr>
-                                        <th scope="row" class="h6">AT</th>
+                                        <th scope="row">
+                                            <span class="badge rounded-pill bg-danger text-black">AT</span>
+                                        </th>
                                         <th:block th:switch="${hero.heroAttribute}">
                                             <th:block th:case="'Сила'">
                                                 <td th:text="${hero.heroAttribute}" class="text-danger"/>
@@ -59,16 +68,18 @@
                                     </tr>
                                     </tbody>
                                 </table>
-                                <a th:href="'heroes/hero-stats/' + ${hero.id}" class="btn btn-primary">Хар-ки</a>
+                                <a th:href="'heroes/hero-stats/' + ${hero.id}" class="btn btn-outline-danger text-white">Хар-ки</a>
+                                <a th:href="'heroes/hero-matches/' + ${hero.id}" class="btn btn-outline-danger text-white ms-4">Статы</a>
+                                <a th:href="'heroes/hero-items/' + ${hero.id}" class="btn btn-outline-danger text-white ms-4">Закуп</a>
                             </div>
                         </div>
                     </th:block>
                     <th:block th:unless="${heroes.indexOf(hero)} % 3 != 0">
                         <div class="w-100 py-2"></div>
-                        <div class="card col-sm-3 mx-2 shadow-sm">
+                        <div class="card col-sm-3 mx-2 shadow-sm bg-dark border-danger">
                             <div class="card-body">
                                 <div class="d-flex flex-row">
-                                    <h5 class="card-title" th:text="${hero.heroName}"/>
+                                    <h5 class="card-title text-white" th:text="${hero.heroName}"/>
                                     <th:block th:switch="${hero.heroAttribute}">
                                         <th:block th:case="'Сила'">
                                             <img src="../../static/images/str.png" th:src="@{/images/str.png}" width="35" height="35" class="position-absolute top-0 end-0 mt-2 mx-3">
@@ -84,11 +95,15 @@
                                 <table class="table table-hover">
                                     <tbody>
                                     <tr>
-                                        <th scope="row" class="h6">ID</th>
-                                        <td th:text="${hero.id}"/>
+                                        <th scope="row">
+                                            <span class="badge rounded-pill bg-danger text-black">ID</span>
+                                        </th>
+                                        <td th:text="${hero.id}" class="text-white"/>
                                     </tr>
                                     <tr>
-                                        <th scope="row" class="h6">AT</th>
+                                        <th scope="row">
+                                            <span class="badge rounded-pill bg-danger text-black">AT</span>
+                                        </th>
                                         <th:block th:switch="${hero.heroAttribute}">
                                             <th:block th:case="'Сила'">
                                                 <td th:text="${hero.heroAttribute}" class="text-danger"/>
@@ -103,7 +118,9 @@
                                     </tr>
                                     </tbody>
                                 </table>
-                                <a th:href="'heroes/hero-stats/' + ${hero.id}" class="btn btn-primary">Хар-ки</a>
+                                <a th:href="'heroes/hero-stats/' + ${hero.id}" class="btn btn-outline-danger text-white">Хар-ки</a>
+                                <a th:href="'heroes/hero-matches/' + ${hero.id}" class="btn btn-outline-danger text-white ms-4">Статы</a>
+                                <a th:href="'heroes/hero-items/' + ${hero.id}" class="btn btn-outline-danger text-white ms-4">Закуп</a>
                             </div>
                         </div>
                     </th:block>
